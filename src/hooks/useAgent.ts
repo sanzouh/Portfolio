@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Groq from 'groq-sdk'
-import { owner, links, about, services, stack, stackCategories, projects, experiences } from '../data/portfolio'
+import { owner, links, about, stack, projects, experiences } from '../data/portfolio'
 
 const groq = new Groq({
   apiKey: import.meta.env.VITE_GROQ_KEY as string,
@@ -62,15 +62,15 @@ export function useAgent() {
       const response = await groq.chat.completions.create({
         model: 'llama-3.3-70b-versatile',
         messages: [
-          { role: 'system', content: buildSystemPrompt() },
+          { role: 'system' as const, content: buildSystemPrompt() },
           ...newMessages.map(m => ({
-            role: m.role === 'user' ? 'user' : 'assistant',
+            role: (m.role === 'user' ? 'user' : 'assistant') as const,
             content: m.text,
           })),
         ],
       })
 
-      const reply: string = response.choices[0].message.content
+      const reply = response.choices[0].message.content || ''
       setMessages([...newMessages, { role: 'assistant', text: reply }])
 
     } catch (e: any) {
