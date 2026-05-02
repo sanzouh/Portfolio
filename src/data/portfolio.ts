@@ -55,25 +55,21 @@ export const services = [
 ] as const
 
 export const stack = [
-  "Node.js",
-  "Express",
-  "NestJS",
-  "React",
-  "Next.js",
-  "TypeScript",
-  "Docker",
-  "GitHub Actions",
-  "Jenkins",
-  "PostgreSQL",
-  "MySQL",
-  "MongoDB",
-  "Prisma",
-  "Laravel",
-  "Spring Boot",
-  "Tailwind CSS",
-  "shadcn/ui",
-  "Jest",
-  "Swagger",
+  "Node.js", "Express", "NestJS",
+  "React", "Next.js", "TypeScript",
+  "Docker", "GitHub Actions", "Jenkins",
+  "PostgreSQL", "MySQL", "MongoDB", "Prisma",
+  "Laravel", "Spring Boot",
+  "Tailwind CSS", "shadcn/ui",
+  "Jest", "Swagger",
+] as const
+
+export const stackCategories = [
+  { label: "Backend",  items: ["Node.js", "Express", "NestJS", "Laravel", "Spring Boot"] },
+  { label: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui"] },
+  { label: "DevOps",   items: ["Docker", "GitHub Actions", "Jenkins"] },
+  { label: "Database", items: ["PostgreSQL", "MySQL", "MongoDB", "Prisma"] },
+  { label: "Tooling",  items: ["Jest", "Swagger"] },
 ] as const
 
 export type Project = {
