@@ -8,17 +8,19 @@ export function Header() {
   const isDark = theme !== "light"
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 h-14 border-b border-border/50 bg-background/90 backdrop-blur-sm">
-      <span className="font-mono text-sm font-bold tracking-widest select-none">
-        SH<span className="text-primary">·</span>RZ
-      </span>
+    <header className="fixed top-0 right-0 left-0 z-50 flex h-14 items-center justify-between border-b border-border/50 bg-background/90 px-6 backdrop-blur-sm md:px-12">
+      <img
+        src="/sanzu-logo.png"
+        alt="Logo"
+        className="h-10 w-auto select-none"
+      />
 
       <div className="flex items-center gap-2">
         <Button
           variant="ghost"
           size="icon"
           onClick={() => setTheme(isDark ? "light" : "dark")}
-          className="hover:text-primary hover:bg-primary/10 transition-colors"
+          className="transition-colors hover:bg-primary/10 hover:text-primary"
           title={isDark ? "Mode clair" : "Mode sombre"}
         >
           {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
@@ -33,11 +35,11 @@ export function Header() {
           <Button
             variant="outline"
             size="sm"
-            className="gap-2 border-border hover:border-primary hover:text-primary hover:bg-primary/10 transition-colors"
+            className="gap-2 border-border transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary"
           >
             <Download className="size-3.5" />
-            <span className="hidden sm:inline font-mono text-xs tracking-widest">
-              DOWNLOAD CV
+            <span className="hidden font-mono text-xs tracking-widest sm:inline">
+              TELECHARGER CV
             </span>
           </Button>
         </a>
