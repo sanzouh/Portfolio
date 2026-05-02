@@ -3,6 +3,7 @@ import { gsap } from "gsap"
 import { useForm, ValidationError } from "@formspree/react"
 import { Mail, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { SectionLabel } from "@/components/ui/section-label"
 import { LinkedinIcon } from "@/components/icons"
 import { links } from "@/data/portfolio"
 import { cn } from "@/lib/utils"
@@ -108,10 +109,10 @@ export function Contact() {
 
   return (
     <section ref={sectionRef} id="contact" className="px-6 py-24 md:px-12 lg:px-24">
-      <div className="mx-auto w-full max-w-7xl">
-        <span className="contact-sys font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase">
+      <div data-parallax="24" className="mx-auto w-full max-w-7xl">
+        <SectionLabel className="contact-sys">
           SYS://CONTACT
-        </span>
+        </SectionLabel>
 
         <div className="mt-10 grid grid-cols-1 items-start gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">
           {/* Left — form */}

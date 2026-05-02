@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
+import { SectionLabel } from "@/components/ui/section-label"
 import { about, projects, experiences, stack } from "@/data/portfolio"
 
 const stats = [
@@ -79,10 +80,10 @@ export function About() {
 
   return (
     <section ref={sectionRef} id="about" className="px-6 md:px-12 lg:px-24 py-24">
-      <div className="w-full max-w-7xl mx-auto">
-        <span className="about-sys text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
+      <div data-parallax="28" className="w-full max-w-7xl mx-auto">
+        <SectionLabel className="about-sys">
           SYS://ABOUT
-        </span>
+        </SectionLabel>
 
         <div className="mt-10 grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12 lg:gap-20 items-start">
 

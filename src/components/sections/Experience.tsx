@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
+import { SectionLabel } from "@/components/ui/section-label"
 import { experiences } from "@/data/portfolio"
 
 export function Experience() {
@@ -52,10 +53,10 @@ export function Experience() {
 
   return (
     <section ref={sectionRef} id="experience" className="px-6 md:px-12 lg:px-24 py-24">
-      <div className="w-full max-w-7xl mx-auto">
-        <span className="experience-sys text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
+      <div data-parallax="30" className="w-full max-w-7xl mx-auto">
+        <SectionLabel className="experience-sys">
           SYS://XP
-        </span>
+        </SectionLabel>
 
         <div className="mt-10 flex flex-col">
           {experiences.map((xp, i) => (

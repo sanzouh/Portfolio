@@ -9,6 +9,7 @@ import {
   SiLaravel, SiSpring,
   SiJest, SiSwagger,
 } from "@icons-pack/react-simple-icons"
+import { SectionLabel } from "@/components/ui/section-label"
 import { stackCategories } from "@/data/portfolio"
 
 type IconProps = { size?: number; color?: string; className?: string }
@@ -87,10 +88,10 @@ export function TechStack() {
 
   return (
     <section ref={sectionRef} id="tech" className="px-6 md:px-12 lg:px-24 py-24">
-      <div className="w-full max-w-7xl mx-auto">
-        <span className="tech-sys text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
+      <div data-parallax="26" className="w-full max-w-7xl mx-auto">
+        <SectionLabel className="tech-sys">
           SYS://TECH
-        </span>
+        </SectionLabel>
 
         <div className="mt-10 flex flex-col gap-8">
           {stackCategories.map((category) => (

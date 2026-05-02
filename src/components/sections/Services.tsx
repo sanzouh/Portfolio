@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
+import { SectionLabel } from "@/components/ui/section-label"
 import { services } from "@/data/portfolio"
 
 export function Services() {
@@ -32,10 +33,10 @@ export function Services() {
 
   return (
     <section ref={sectionRef} id="services" className="px-6 md:px-12 lg:px-24 py-24">
-      <div className="w-full max-w-7xl mx-auto">
-        <span className="services-sys text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
+      <div data-parallax="32" className="w-full max-w-7xl mx-auto">
+        <SectionLabel className="services-sys">
           SYS://SERVICES
-        </span>
+        </SectionLabel>
 
         <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-px border border-border/50 rounded-sm overflow-hidden">
           {services.map((service) => (

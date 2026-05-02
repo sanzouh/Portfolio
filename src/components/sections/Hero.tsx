@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
 import { Mail, MapPin, Award, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { SectionLabel } from "@/components/ui/section-label"
 import { GithubIcon, LinkedinIcon } from "@/components/icons"
 import { owner, links } from "@/data/portfolio"
 
@@ -86,13 +87,13 @@ export function Hero() {
       id="home"
       className="relative min-h-[calc(100vh-3.5rem)] flex flex-col justify-center px-6 md:px-12 lg:px-24 py-16"
     >
-      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_320px] lg:grid-cols-[1fr_380px] gap-12 md:gap-16 items-center">
+      <div data-parallax="18" className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_320px] lg:grid-cols-[1fr_380px] gap-12 md:gap-16 items-center">
 
         {/* Left — text content */}
         <div className="order-2 md:order-1 flex flex-col gap-5">
-          <span className="hero-sys text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
+          <SectionLabel className="hero-sys">
             SYS://HOME
-          </span>
+          </SectionLabel>
 
           {owner.available && (
             <div className="hero-badge inline-flex w-fit items-center gap-2 rounded-full border border-primary/40 bg-primary/5 px-3 py-1.5">

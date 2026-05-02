@@ -3,6 +3,7 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { SectionLabel } from "@/components/ui/section-label"
 import { GithubIcon } from "@/components/icons"
 import { projects } from "@/data/portfolio"
 import { cn } from "@/lib/utils"
@@ -68,7 +69,7 @@ export function Projects() {
 
   return (
     <section ref={sectionRef} id="projects" className="px-6 py-24 md:px-12 lg:px-24">
-      <div className="relative mx-auto w-full max-w-7xl">
+      <div data-parallax="34" className="relative mx-auto w-full max-w-7xl">
         {/* Grid View */}
         <div
           ref={gridRef}
@@ -77,9 +78,9 @@ export function Projects() {
             openProject ? "pointer-events-none opacity-0" : "opacity-100",
           )}
         >
-          <span className="projects-sys font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase">
+          <SectionLabel className="projects-sys">
             SYS://PROJECTS
-          </span>
+          </SectionLabel>
 
           <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
             {projects.map((project) => (
