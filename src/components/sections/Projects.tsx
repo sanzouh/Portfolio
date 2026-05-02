@@ -15,8 +15,8 @@ export function Projects() {
     : null
 
   return (
-    <section id="projects" className="px-6 py-24 md:px-12 lg:px-24">
-      <div className="mx-auto w-full max-w-7xl">
+    <section id="projects" className="px-6 md:px-12 lg:px-24 py-24">
+      <div className="w-full max-w-7xl mx-auto relative">
         {/* Grid View */}
         <div
           className={cn(
@@ -24,11 +24,11 @@ export function Projects() {
             openProject ? "pointer-events-none opacity-0" : "opacity-100"
           )}
         >
-          <span className="font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase">
+          <span className="text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
             SYS://PROJECTS
           </span>
 
-          <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4">
             {projects.map((project) => (
               <div
                 key={project.id}
@@ -40,7 +40,7 @@ export function Projects() {
               >
                 <span
                   aria-hidden
-                  className="absolute top-4 right-5 text-6xl leading-none font-black text-foreground/4 transition-colors select-none group-hover:text-primary/12"
+                  className="absolute right-5 top-4 select-none font-black leading-none text-6xl text-foreground/4 group-hover:text-primary/12 transition-colors"
                 >
                   {project.id}
                 </span>
@@ -49,7 +49,7 @@ export function Projects() {
                   {project.category}
                 </span>
 
-                <h3 className="text-lg leading-tight font-bold transition-colors group-hover:text-primary">
+                <h3 className="text-lg font-bold leading-tight group-hover:text-primary transition-colors">
                   {project.name}
                 </h3>
 
@@ -61,7 +61,7 @@ export function Projects() {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-sm border border-border/60 bg-muted/30 px-2 py-0.5 font-mono text-xs text-foreground/60 transition-colors group-hover:border-border group-hover:text-foreground/70"
+                      className="rounded-sm border border-dashed border-border/50 bg-muted/20 px-2 py-0.5 font-mono text-xs text-foreground/50 transition-colors group-hover:border-border/70 group-hover:text-foreground/60"
                     >
                       {tag}
                     </span>
@@ -69,31 +69,38 @@ export function Projects() {
                 </div>
 
                 <div
-                  className="flex items-center gap-2 pt-1"
+                  className="flex items-center gap-2 pt-4"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="gap-1.5 border-border/60 font-mono text-xs tracking-widest hover:border-primary hover:bg-primary/10 hover:text-primary"
-                  >
-                    DEEP DIVE
-                    <ChevronDown className="size-3" />
-                  </Button>
-
                   {project.github && (
                     <a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      title="GitHub"
                     >
                       <Button
-                        variant="ghost"
-                        size="icon"
-                        className="size-8 hover:bg-primary/10 hover:text-primary"
+                        variant="outline"
+                        size="sm"
+                        className="gap-2 border-border/60 hover:border-primary hover:bg-primary/10 hover:text-primary"
                       >
                         <GithubIcon className="size-4" />
+                        <span className="font-mono text-xs tracking-wide">GitHub</span>
+                      </Button>
+                    </a>
+                  )}
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="gap-2 border-border/60 hover:border-primary hover:bg-primary/10 hover:text-primary"
+                      >
+                        <span className="text-sm leading-none">↗</span>
+                        <span className="font-mono text-xs tracking-wide">Live</span>
                       </Button>
                     </a>
                   )}
@@ -103,13 +110,13 @@ export function Projects() {
           </div>
         </div>
 
-        {/* Detail View */}
+        {/* Detail View - Absolute Overlay */}
         <div
           className={cn(
-            "transition-all duration-500 ease-in-out",
+            "absolute inset-0 top-0 left-0 transition-all duration-500 ease-in-out",
             openProject
-              ? "translate-y-0 opacity-100"
-              : "pointer-events-none absolute translate-y-10 opacity-0"
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
           )}
         >
           {openProject && (
@@ -132,25 +139,25 @@ export function Projects() {
                 {/* Left: Summary */}
                 <div className="space-y-6">
                   <div>
-                    <span className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground/50 uppercase">
+                    <span className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground/40 uppercase">
                       {openProject.category}
                     </span>
-                    <h1 className="mt-3 text-3xl font-bold text-primary">
+                    <h1 className="mt-2 text-4xl font-black text-primary leading-tight">
                       {openProject.name}
                     </h1>
                   </div>
 
                   <div>
-                    <h2 className="mb-3 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+                    <h2 className="mb-3 text-xs font-semibold text-muted-foreground/50 uppercase tracking-[0.15em]">
                       Overview
                     </h2>
-                    <p className="text-base leading-relaxed text-muted-foreground">
+                    <p className="text-base leading-relaxed text-foreground">
                       {openProject.shortDesc}
                     </p>
                   </div>
 
                   <div>
-                    <h2 className="mb-3 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+                    <h2 className="mb-3 text-xs font-semibold text-muted-foreground/50 uppercase tracking-[0.15em]">
                       Technical Details
                     </h2>
                     <p className="text-sm leading-relaxed text-muted-foreground">
@@ -159,7 +166,7 @@ export function Projects() {
                   </div>
 
                   <div>
-                    <h2 className="mb-3 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+                    <h2 className="mb-3 text-xs font-semibold text-muted-foreground/50 uppercase tracking-[0.15em]">
                       Technologies
                     </h2>
                     <div className="flex flex-wrap gap-2">
@@ -175,13 +182,13 @@ export function Projects() {
                   </div>
 
                   {(openProject.github || openProject.live) && (
-                    <div className="flex gap-4 pt-4">
+                    <div className="flex gap-4 pt-4 border-t border-border/30 pt-6">
                       {openProject.github && (
                         <a
                           href={openProject.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 font-mono text-sm text-primary transition-colors hover:text-primary/70"
+                          className="inline-flex items-center gap-2 font-mono text-xs text-primary transition-colors hover:text-primary/70"
                         >
                           <GithubIcon className="size-4" />
                           Source code
@@ -192,7 +199,7 @@ export function Projects() {
                           href={openProject.live}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 font-mono text-sm text-primary transition-colors hover:text-primary/70"
+                          className="inline-flex items-center gap-2 font-mono text-xs text-primary transition-colors hover:text-primary/70"
                         >
                           ↗ Live demo
                         </a>
@@ -211,12 +218,12 @@ export function Projects() {
                     />
                   </div>
                   <div className="rounded-sm border border-primary/20 bg-primary/5 p-4">
-                    <p className="mb-2 font-mono text-xs tracking-[0.2em] text-primary/60 uppercase">
+                    <p className="text-xs font-mono tracking-[0.2em] text-primary/60 uppercase mb-2">
                       Project Preview
                     </p>
                     <p className="text-sm leading-relaxed text-muted-foreground">
-                      This project showcases {openProject.name}. Click the links
-                      above to explore the source code or visit the live demo.
+                      This project showcases {openProject.name}. Click the links above to explore
+                      the source code or visit the live demo.
                     </p>
                   </div>
                 </div>
