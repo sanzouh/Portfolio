@@ -1,10 +1,59 @@
+import { useEffect, useRef } from "react"
+import { gsap } from "gsap"
 import { experiences } from "@/data/portfolio"
 
 export function Experience() {
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const trigger = { trigger: sectionRef.current, start: "top 78%", once: true }
+
+      gsap.from(".experience-sys", {
+        opacity: 0,
+        x: -12,
+        duration: 0.5,
+        ease: "power2.out",
+        scrollTrigger: trigger,
+      })
+
+      // Timeline spine draws down
+      gsap.from(".timeline-spine", {
+        scaleY: 0,
+        transformOrigin: "top center",
+        duration: 1.2,
+        ease: "power2.inOut",
+        scrollTrigger: trigger,
+      })
+
+      // Timeline dots pop in
+      gsap.from(".timeline-dot", {
+        opacity: 0,
+        scale: 0,
+        stagger: 0.25,
+        duration: 0.4,
+        ease: "back.out(2)",
+        scrollTrigger: { ...trigger, start: "top 76%" },
+      })
+
+      // Experience entries slide in from left
+      gsap.from(".experience-entry", {
+        opacity: 0,
+        x: -20,
+        stagger: 0.2,
+        duration: 0.65,
+        ease: "power2.out",
+        scrollTrigger: { ...trigger, start: "top 76%" },
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="experience" className="px-6 md:px-12 lg:px-24 py-24">
+    <section ref={sectionRef} id="experience" className="px-6 md:px-12 lg:px-24 py-24">
       <div className="w-full max-w-7xl mx-auto">
-        <span className="text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
+        <span className="experience-sys text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
           SYS://XP
         </span>
 
@@ -13,14 +62,14 @@ export function Experience() {
             <div key={i} className="relative flex gap-8 md:gap-12">
               {/* Timeline spine */}
               <div className="flex flex-col items-center">
-                <div className="size-2.5 rounded-full border-2 border-primary bg-background shrink-0 mt-1" />
+                <div className="timeline-dot size-2.5 rounded-full border-2 border-primary bg-background shrink-0 mt-1" />
                 {i < experiences.length - 1 && (
-                  <div className="w-px flex-1 bg-border/50 my-2" />
+                  <div className="timeline-spine w-px flex-1 bg-border/50 my-2" />
                 )}
               </div>
 
               {/* Content */}
-              <div className="flex flex-col gap-3 pb-12">
+              <div className="experience-entry flex flex-col gap-3 pb-12">
                 <span className="font-mono text-[10px] tracking-[0.3em] text-primary/70 uppercase">
                   {xp.period}
                 </span>

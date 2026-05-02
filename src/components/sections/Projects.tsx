@@ -1,4 +1,6 @@
-import { useState } from "react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { GithubIcon } from "@/components/icons"
@@ -9,22 +11,73 @@ const DEFAULT_SCREENSHOT = "/project-image-not-found.png"
 
 export function Projects() {
   const [openId, setOpenId] = useState<string | null>(null)
+  const sectionRef = useRef<HTMLElement>(null)
+  const detailRef = useRef<HTMLDivElement>(null)
+  const gridRef = useRef<HTMLDivElement>(null)
 
   const openProject = openId
     ? (projects.find((p) => p.id === openId) ?? null)
     : null
 
+  // Scroll-triggered entrance for the grid cards (runs once)
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top 90%",
+        once: true,
+        onEnter: () => {
+          gsap
+            .timeline()
+            .fromTo(
+              ".projects-sys",
+              { opacity: 0, x: -12 },
+              { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" },
+            )
+            .fromTo(
+              ".project-card",
+              { opacity: 0, y: 28 },
+              {
+                opacity: 1,
+                y: 0,
+                stagger: 0.1,
+                duration: 0.6,
+                ease: "power2.out",
+              },
+              "-=0.2",
+            )
+        },
+      })
+
+      ScrollTrigger.refresh()
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
+  // Animate detail view open
+  useEffect(() => {
+    if (openProject && detailRef.current) {
+      gsap.fromTo(
+        detailRef.current,
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
+      )
+    }
+  }, [openProject])
+
   return (
-    <section id="projects" className="px-6 py-24 md:px-12 lg:px-24">
+    <section ref={sectionRef} id="projects" className="px-6 py-24 md:px-12 lg:px-24">
       <div className="relative mx-auto w-full max-w-7xl">
         {/* Grid View */}
         <div
+          ref={gridRef}
           className={cn(
             "transition-all duration-500 ease-in-out",
-            openProject ? "pointer-events-none opacity-0" : "opacity-100"
+            openProject ? "pointer-events-none opacity-0" : "opacity-100",
           )}
         >
-          <span className="font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase">
+          <span className="projects-sys font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase">
             SYS://PROJECTS
           </span>
 
@@ -33,8 +86,8 @@ export function Projects() {
               <div
                 key={project.id}
                 className={cn(
-                  "group relative flex cursor-pointer flex-col gap-4 rounded-sm border p-6 transition-all duration-200",
-                  "border-border/50 bg-card hover:border-primary/50 hover:bg-primary/3 hover:shadow-[0_0_20px_-8px_hsl(var(--primary)/0.1)]"
+                  "project-card group relative flex cursor-pointer flex-col gap-4 rounded-sm border p-6 transition-all duration-200",
+                  "border-border/50 bg-card hover:border-primary/50 hover:bg-primary/3 hover:shadow-[0_0_20px_-8px_hsl(var(--primary)/0.1)]",
                 )}
                 onClick={() => setOpenId(project.id)}
               >
@@ -73,38 +126,26 @@ export function Projects() {
                   onClick={(e) => e.stopPropagation()}
                 >
                   {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <a href={project.github} target="_blank" rel="noopener noreferrer">
                       <Button
                         variant="outline"
                         size="sm"
                         className="gap-2 border-border/60 hover:border-primary hover:bg-primary/10 hover:text-primary"
                       >
                         <GithubIcon className="size-4" />
-                        <span className="font-mono text-xs tracking-wide">
-                          GitHub
-                        </span>
+                        <span className="font-mono text-xs tracking-wide">GitHub</span>
                       </Button>
                     </a>
                   )}
                   {project.live && (
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <a href={project.live} target="_blank" rel="noopener noreferrer">
                       <Button
                         variant="outline"
                         size="sm"
                         className="gap-2 border-border/60 hover:border-primary hover:bg-primary/10 hover:text-primary"
                       >
                         <span className="text-sm leading-none">↗</span>
-                        <span className="font-mono text-xs tracking-wide">
-                          Live
-                        </span>
+                        <span className="font-mono text-xs tracking-wide">Live</span>
                       </Button>
                     </a>
                   )}
@@ -117,14 +158,14 @@ export function Projects() {
         {/* Detail View - Absolute Overlay */}
         <div
           className={cn(
-            "absolute inset-0 top-0 left-0 transition-all duration-500 ease-in-out",
+            "absolute inset-0 top-0 left-0 transition-opacity duration-500 ease-in-out",
             openProject
               ? "pointer-events-auto opacity-100"
-              : "pointer-events-none opacity-0"
+              : "pointer-events-none opacity-0",
           )}
         >
           {openProject && (
-            <div className="space-y-6">
+            <div ref={detailRef} className="space-y-6">
               {/* Back Button */}
               <div className="flex items-center gap-3">
                 <Button

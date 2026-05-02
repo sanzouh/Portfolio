@@ -1,11 +1,88 @@
+import { useEffect, useRef } from "react"
+import { gsap } from "gsap"
 import { Mail, MapPin, Award, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { GithubIcon, LinkedinIcon } from "@/components/icons"
 import { owner, links } from "@/data/portfolio"
 
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ delay: 0.15 })
+
+      tl.from(".hero-sys", {
+          opacity: 0,
+          x: -12,
+          duration: 0.4,
+          ease: "power2.out",
+        })
+        .from(
+          ".hero-badge",
+          { opacity: 0, y: 12, duration: 0.5, ease: "power2.out" },
+          "-=0.15",
+        )
+        .from(
+          ".hero-name-1",
+          { opacity: 0, y: 32, duration: 0.65, ease: "power3.out" },
+          "-=0.25",
+        )
+        .from(
+          ".hero-name-2",
+          { opacity: 0, y: 32, duration: 0.65, ease: "power3.out" },
+          "-=0.5",
+        )
+        .from(
+          ".hero-divider",
+          {
+            opacity: 0,
+            scaleX: 0,
+            duration: 0.45,
+            ease: "power2.out",
+            transformOrigin: "left center",
+          },
+          "-=0.35",
+        )
+        .from(
+          ".hero-title-text",
+          { opacity: 0, x: -12, duration: 0.45, ease: "power2.out" },
+          "-=0.25",
+        )
+        .from(
+          ".hero-tagline",
+          { opacity: 0, y: 12, duration: 0.45, ease: "power2.out" },
+          "-=0.2",
+        )
+        .from(
+          ".hero-location",
+          { opacity: 0, y: 8, duration: 0.4, ease: "power2.out" },
+          "-=0.3",
+        )
+        .from(
+          ".hero-social-btn",
+          {
+            opacity: 0,
+            y: 12,
+            stagger: 0.07,
+            duration: 0.35,
+            ease: "power2.out",
+          },
+          "-=0.25",
+        )
+        .from(
+          ".hero-photo",
+          { opacity: 0, scale: 0.93, duration: 0.9, ease: "power2.out" },
+          "-=0.8",
+        )
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
     <section
+      ref={sectionRef}
       id="home"
       className="relative min-h-[calc(100vh-3.5rem)] flex flex-col justify-center px-6 md:px-12 lg:px-24 py-16"
     >
@@ -13,12 +90,12 @@ export function Hero() {
 
         {/* Left — text content */}
         <div className="order-2 md:order-1 flex flex-col gap-5">
-          <span className="text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
+          <span className="hero-sys text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
             SYS://HOME
           </span>
 
           {owner.available && (
-            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/40 bg-primary/5 px-3 py-1.5">
+            <div className="hero-badge inline-flex w-fit items-center gap-2 rounded-full border border-primary/40 bg-primary/5 px-3 py-1.5">
               <span className="size-1.5 rounded-full bg-green-400 animate-pulse" />
               <span className="text-xs font-mono tracking-widest text-primary">
                 AVAILABLE FOR WORK
@@ -28,68 +105,53 @@ export function Hero() {
 
           <div>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-none tracking-tight">
-              <span className="block">{owner.firstName}</span>
-              <span className="block text-primary">{owner.lastName}</span>
+              <span className="hero-name-1 block">{owner.firstName}</span>
+              <span className="hero-name-2 block text-primary">{owner.lastName}</span>
             </h1>
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="h-px w-8 bg-primary shrink-0" />
-            <span className="text-sm md:text-base text-muted-foreground font-light tracking-[0.2em] uppercase">
+            <span className="hero-divider h-px w-8 bg-primary shrink-0" />
+            <span className="hero-title-text text-sm md:text-base text-muted-foreground font-light tracking-[0.2em] uppercase">
               {owner.title}
             </span>
           </div>
 
-          <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-md">
+          <p className="hero-tagline text-sm md:text-base text-muted-foreground leading-relaxed max-w-md">
             {owner.tagline}
           </p>
 
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground/50">
+          <div className="hero-location flex items-center gap-1.5 text-xs text-muted-foreground/50">
             <MapPin className="size-3 shrink-0" />
             <span>{owner.location}</span>
           </div>
 
           <div className="flex items-center gap-0.5 pt-1">
-            <a
-              href={links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              title="GitHub"
-            >
+            <a href={links.github} target="_blank" rel="noopener noreferrer" title="GitHub">
               <Button
                 variant="ghost"
                 size="icon"
-                className="hover:text-primary hover:bg-primary/10 transition-colors"
+                className="hero-social-btn hover:text-primary hover:bg-primary/10 transition-colors"
               >
                 <GithubIcon className="size-4" />
               </Button>
             </a>
 
-            <a
-              href={links.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              title="LinkedIn"
-            >
+            <a href={links.linkedin} target="_blank" rel="noopener noreferrer" title="LinkedIn">
               <Button
                 variant="ghost"
                 size="icon"
-                className="hover:text-primary hover:bg-primary/10 transition-colors"
+                className="hero-social-btn hover:text-primary hover:bg-primary/10 transition-colors"
               >
                 <LinkedinIcon className="size-4" />
               </Button>
             </a>
 
-            <a
-              href={links.codersrank}
-              target="_blank"
-              rel="noopener noreferrer"
-              title="CodersRank"
-            >
+            <a href={links.codersrank} target="_blank" rel="noopener noreferrer" title="CodersRank">
               <Button
                 variant="ghost"
                 size="icon"
-                className="hover:text-primary hover:bg-primary/10 transition-colors"
+                className="hero-social-btn hover:text-primary hover:bg-primary/10 transition-colors"
               >
                 <Award className="size-4" />
               </Button>
@@ -99,7 +161,7 @@ export function Hero() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="hover:text-primary hover:bg-primary/10 transition-colors"
+                className="hero-social-btn hover:text-primary hover:bg-primary/10 transition-colors"
               >
                 <Mail className="size-4" />
               </Button>
@@ -109,7 +171,7 @@ export function Hero() {
 
         {/* Right — photo */}
         <div className="order-1 md:order-2 flex justify-center md:justify-end items-center">
-          <div className="relative">
+          <div className="hero-photo relative">
             {/* Yellow ambient glow */}
             <div className="absolute -inset-8 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
 

@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react"
+import { gsap } from "gsap"
 import { about, projects, experiences, stack } from "@/data/portfolio"
 
 const stats = [
@@ -8,10 +10,77 @@ const stats = [
 ]
 
 export function About() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const statValueRefs = useRef<(HTMLSpanElement | null)[]>([])
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const trigger = { trigger: sectionRef.current, start: "top 80%", once: true }
+
+      gsap.from(".about-sys", {
+        opacity: 0,
+        x: -12,
+        duration: 0.5,
+        ease: "power2.out",
+        scrollTrigger: trigger,
+      })
+
+      gsap.from(".about-bio-p", {
+        opacity: 0,
+        y: 18,
+        stagger: 0.1,
+        duration: 0.55,
+        ease: "power2.out",
+        scrollTrigger: { ...trigger, start: "top 78%" },
+      })
+
+      gsap.from(".about-seeking", {
+        opacity: 0,
+        x: -16,
+        duration: 0.55,
+        ease: "power2.out",
+        scrollTrigger: { ...trigger, start: "top 75%" },
+      })
+
+      gsap.from(".about-stat-card", {
+        opacity: 0,
+        y: 20,
+        stagger: 0.1,
+        duration: 0.5,
+        ease: "power2.out",
+        scrollTrigger: { ...trigger, start: "top 78%" },
+      })
+
+      // Count-up animation for numeric stats
+      stats.forEach((stat, i) => {
+        const el = statValueRefs.current[i]
+        if (!el || typeof stat.value !== "number") return
+
+        const target = stat.value
+        const obj = { val: 0 }
+
+        gsap.to(obj, {
+          val: target,
+          duration: 1.5,
+          ease: "power2.out",
+          onStart() {
+            el.textContent = "0"
+          },
+          onUpdate() {
+            el.textContent = Math.round(obj.val).toString()
+          },
+          scrollTrigger: { ...trigger, start: "top 78%" },
+        })
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="about" className="px-6 md:px-12 lg:px-24 py-24">
+    <section ref={sectionRef} id="about" className="px-6 md:px-12 lg:px-24 py-24">
       <div className="w-full max-w-7xl mx-auto">
-        <span className="text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
+        <span className="about-sys text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
           SYS://ABOUT
         </span>
 
@@ -21,14 +90,14 @@ export function About() {
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-4">
               {about.bio.map((paragraph, i) => (
-                <p key={i} className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                <p key={i} className="about-bio-p text-sm md:text-base text-muted-foreground leading-relaxed">
                   {paragraph}
                 </p>
               ))}
             </div>
 
             {/* Seeking callout */}
-            <div className="border-l-2 border-primary pl-5 py-1 flex flex-col gap-3">
+            <div className="about-seeking border-l-2 border-primary pl-5 py-1 flex flex-col gap-3">
               <p className="text-sm text-foreground/80 leading-relaxed">
                 {about.seeking}
               </p>
@@ -47,12 +116,15 @@ export function About() {
 
           {/* Right — stats */}
           <div className="grid grid-cols-2 lg:grid-cols-1 gap-px border border-border/50 rounded-sm overflow-hidden">
-            {stats.map((stat) => (
+            {stats.map((stat, i) => (
               <div
                 key={stat.label}
-                className="flex flex-col gap-1 px-5 py-5 bg-card"
+                className="about-stat-card flex flex-col gap-1 px-5 py-5 bg-card"
               >
-                <span className="text-3xl font-bold text-primary leading-none">
+                <span
+                  ref={(el) => { statValueRefs.current[i] = el }}
+                  className="text-3xl font-bold text-primary leading-none"
+                >
                   {stat.value}
                 </span>
                 <span className="text-xs text-muted-foreground tracking-wide">

@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react"
+import { gsap } from "gsap"
 import { useForm, ValidationError } from "@formspree/react"
 import { Mail, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -15,7 +17,7 @@ function FormField({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="contact-field flex flex-col gap-1.5">
       <label className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground/50 uppercase">
         {label}
       </label>
@@ -32,14 +34,82 @@ const inputClass =
 
 export function Contact() {
   const [state, handleSubmit] = useForm(links.formspree)
+  const sectionRef = useRef<HTMLElement>(null)
 
   const emailError = state.errors?.getFieldErrors("email")?.[0]?.message
   const messageError = state.errors?.getFieldErrors("message")?.[0]?.message
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const trigger = { trigger: sectionRef.current, start: "top 82%", once: true }
+
+      gsap.from(".contact-sys", {
+        opacity: 0,
+        x: -12,
+        duration: 0.5,
+        ease: "power2.out",
+        scrollTrigger: trigger,
+      })
+
+      gsap.from(".contact-heading-1", {
+        opacity: 0,
+        y: 28,
+        duration: 0.7,
+        ease: "power3.out",
+        scrollTrigger: { ...trigger, start: "top 80%" },
+      })
+
+      gsap.from(".contact-heading-2", {
+        opacity: 0,
+        y: 28,
+        duration: 0.7,
+        ease: "power3.out",
+        delay: 0.08,
+        scrollTrigger: { ...trigger, start: "top 80%" },
+      })
+
+      gsap.from(".contact-desc", {
+        opacity: 0,
+        y: 14,
+        duration: 0.55,
+        ease: "power2.out",
+        scrollTrigger: { ...trigger, start: "top 78%" },
+      })
+
+      gsap.from(".contact-field", {
+        opacity: 0,
+        x: -16,
+        stagger: 0.08,
+        duration: 0.5,
+        ease: "power2.out",
+        scrollTrigger: { ...trigger, start: "top 75%" },
+      })
+
+      gsap.from(".contact-submit", {
+        opacity: 0,
+        y: 10,
+        duration: 0.45,
+        ease: "power2.out",
+        scrollTrigger: { ...trigger, start: "top 72%" },
+      })
+
+      gsap.from(".contact-block", {
+        opacity: 0,
+        x: 16,
+        stagger: 0.1,
+        duration: 0.55,
+        ease: "power2.out",
+        scrollTrigger: { ...trigger, start: "top 78%" },
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="contact" className="px-6 py-24 md:px-12 lg:px-24">
+    <section ref={sectionRef} id="contact" className="px-6 py-24 md:px-12 lg:px-24">
       <div className="mx-auto w-full max-w-7xl">
-        <span className="font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase">
+        <span className="contact-sys font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase">
           SYS://CONTACT
         </span>
 
@@ -48,10 +118,10 @@ export function Contact() {
           <div className="flex flex-col gap-6">
             <div>
               <h2 className="text-4xl leading-none font-black tracking-tight uppercase md:text-5xl lg:text-6xl">
-                <span className="block text-foreground">TRAVAILLONS</span>
-                <span className="block text-primary">ENSEMBLE.</span>
+                <span className="contact-heading-1 block text-foreground">TRAVAILLONS</span>
+                <span className="contact-heading-2 block text-primary">ENSEMBLE.</span>
               </h2>
-              <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+              <p className="contact-desc mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
                 Vous souhaitez discuter, collaborer ou échanger sur un projet ?{" "}
                 <span className="text-foreground/80">
                   N'hésitez pas à me contacter,
@@ -93,10 +163,7 @@ export function Contact() {
                       name="email"
                       placeholder="you@example.com"
                       required
-                      className={cn(
-                        inputClass,
-                        emailError && "border-destructive/60"
-                      )}
+                      className={cn(inputClass, emailError && "border-destructive/60")}
                     />
                     <ValidationError
                       field="email"
@@ -121,11 +188,7 @@ export function Contact() {
                     rows={5}
                     placeholder="Décrivez votre projet ou votre demande..."
                     required
-                    className={cn(
-                      inputClass,
-                      "resize-none",
-                      messageError && "border-destructive/60"
-                    )}
+                    className={cn(inputClass, "resize-none", messageError && "border-destructive/60")}
                   />
                   <ValidationError
                     field="message"
@@ -137,7 +200,7 @@ export function Contact() {
                 <Button
                   type="submit"
                   disabled={state.submitting}
-                  className="gap-2 self-start font-mono text-xs tracking-widest"
+                  className="contact-submit gap-2 self-start font-mono text-xs tracking-widest"
                 >
                   {state.submitting ? (
                     <>
@@ -159,7 +222,7 @@ export function Contact() {
           <div className="flex flex-col gap-3 lg:pt-28">
             <a
               href={`mailto:${links.email}`}
-              className="group flex items-center gap-4 rounded-sm border border-border/50 bg-card px-5 py-4 transition-all duration-200 hover:border-primary/60 hover:bg-primary/5 hover:shadow-[0_0_20px_-8px_hsl(var(--primary)/0.2)]"
+              className="contact-block group flex items-center gap-4 rounded-sm border border-border/50 bg-card px-5 py-4 transition-all duration-200 hover:border-primary/60 hover:bg-primary/5 hover:shadow-[0_0_20px_-8px_hsl(var(--primary)/0.2)]"
             >
               <div className="flex size-9 shrink-0 items-center justify-center rounded-sm border border-border/50 bg-muted/30 transition-colors group-hover:border-primary/50 group-hover:text-primary">
                 <Mail className="size-4" />
@@ -181,7 +244,7 @@ export function Contact() {
               href={links.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-sm border border-border/50 bg-card px-5 py-4 transition-all duration-200 hover:border-primary/60 hover:bg-primary/5 hover:shadow-[0_0_20px_-8px_hsl(var(--primary)/0.2)]"
+              className="contact-block group flex items-center gap-4 rounded-sm border border-border/50 bg-card px-5 py-4 transition-all duration-200 hover:border-primary/60 hover:bg-primary/5 hover:shadow-[0_0_20px_-8px_hsl(var(--primary)/0.2)]"
             >
               <div className="flex size-9 shrink-0 items-center justify-center rounded-sm border border-border/50 bg-muted/30 transition-colors group-hover:border-primary/50 group-hover:text-primary">
                 <LinkedinIcon className="size-4" />

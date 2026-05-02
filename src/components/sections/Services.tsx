@@ -1,10 +1,39 @@
+import { useEffect, useRef } from "react"
+import { gsap } from "gsap"
 import { services } from "@/data/portfolio"
 
 export function Services() {
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const trigger = { trigger: sectionRef.current, start: "top 82%", once: true }
+
+      gsap.from(".services-sys", {
+        opacity: 0,
+        x: -12,
+        duration: 0.5,
+        ease: "power2.out",
+        scrollTrigger: trigger,
+      })
+
+      gsap.from(".service-card", {
+        opacity: 0,
+        y: 32,
+        stagger: 0.12,
+        duration: 0.65,
+        ease: "power2.out",
+        scrollTrigger: { ...trigger, start: "top 80%" },
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="services" className="px-6 md:px-12 lg:px-24 py-24">
+    <section ref={sectionRef} id="services" className="px-6 md:px-12 lg:px-24 py-24">
       <div className="w-full max-w-7xl mx-auto">
-        <span className="text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
+        <span className="services-sys text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
           SYS://SERVICES
         </span>
 
@@ -12,7 +41,7 @@ export function Services() {
           {services.map((service) => (
             <div
               key={service.number}
-              className="group relative flex flex-col gap-4 bg-card px-7 py-8 transition-colors hover:bg-card/80 overflow-hidden"
+              className="service-card group relative flex flex-col gap-4 bg-card px-7 py-8 transition-colors hover:bg-card/80 overflow-hidden"
             >
               {/* Watermark number */}
               <span
