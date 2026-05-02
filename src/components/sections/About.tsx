@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
 import { SectionLabel } from "@/components/ui/section-label"
 import { about, projects, experiences, stack } from "@/data/portfolio"
-import { SectionLabel } from "@/components/SectionLabel"
 
 const stats = [
   { value: projects.length, label: "projets livrés" },
