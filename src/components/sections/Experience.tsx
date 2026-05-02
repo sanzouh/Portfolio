@@ -1,12 +1,11 @@
 import { experiences } from "@/data/portfolio"
+import { SectionLabel } from "@/components/SectionLabel"
 
 export function Experience() {
   return (
     <section id="experience" className="px-6 md:px-12 lg:px-24 py-24">
       <div className="w-full max-w-7xl mx-auto">
-        <span className="text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
-          SYS://XP
-        </span>
+        <SectionLabel label="SYS://XP" />
 
         <div className="mt-10 flex flex-col">
           {experiences.map((xp, i) => (

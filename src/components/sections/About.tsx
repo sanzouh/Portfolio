@@ -1,4 +1,5 @@
 import { about, projects, experiences, stack } from "@/data/portfolio"
+import { SectionLabel } from "@/components/SectionLabel"
 
 const stats = [
   { value: projects.length, label: "projets livrés" },
@@ -11,9 +12,7 @@ export function About() {
   return (
     <section id="about" className="px-6 md:px-12 lg:px-24 py-24">
       <div className="w-full max-w-7xl mx-auto">
-        <span className="text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
-          SYS://ABOUT
-        </span>
+        <SectionLabel label="SYS://ABOUT" />
 
         <div className="mt-10 grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12 lg:gap-20 items-start">
 

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { LinkedinIcon } from "@/components/icons"
 import { links } from "@/data/portfolio"
 import { cn } from "@/lib/utils"
+import { SectionLabel } from "@/components/SectionLabel"
 
 function FormField({
   label,
@@ -39,9 +40,7 @@ export function Contact() {
   return (
     <section id="contact" className="px-6 py-24 md:px-12 lg:px-24">
       <div className="mx-auto w-full max-w-7xl">
-        <span className="font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase">
-          SYS://CONTACT
-        </span>
+        <SectionLabel label="SYS://CONTACT" />
 
         <div className="mt-10 grid grid-cols-1 items-start gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">
           {/* Left — form */}

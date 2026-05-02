@@ -2,6 +2,7 @@ import { Mail, MapPin, Award, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { GithubIcon, LinkedinIcon } from "@/components/icons"
 import { owner, links } from "@/data/portfolio"
+import { SectionLabel } from "@/components/SectionLabel"
 
 export function Hero() {
   return (
@@ -13,9 +14,7 @@ export function Hero() {
 
         {/* Left — text content */}
         <div className="order-2 md:order-1 flex flex-col gap-5">
-          <span className="text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
-            SYS://HOME
-          </span>
+          <SectionLabel label="SYS://HOME" />
 
           {owner.available && (
             <div className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/40 bg-primary/5 px-3 py-1.5">

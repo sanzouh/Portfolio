@@ -1,12 +1,11 @@
 import { services } from "@/data/portfolio"
+import { SectionLabel } from "@/components/SectionLabel"
 
 export function Services() {
   return (
     <section id="services" className="px-6 md:px-12 lg:px-24 py-24">
       <div className="w-full max-w-7xl mx-auto">
-        <span className="text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
-          SYS://SERVICES
-        </span>
+        <SectionLabel label="SYS://SERVICES" />
 
         <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-px border border-border/50 rounded-sm overflow-hidden">
           {services.map((service) => (

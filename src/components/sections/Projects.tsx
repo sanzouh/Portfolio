@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { GithubIcon } from "@/components/icons"
 import { projects } from "@/data/portfolio"
 import { cn } from "@/lib/utils"
+import { SectionLabel } from "@/components/SectionLabel"
 
 const DEFAULT_SCREENSHOT = "/project-image-not-found.png"
 
@@ -24,9 +25,7 @@ export function Projects() {
             openProject ? "pointer-events-none opacity-0" : "opacity-100"
           )}
         >
-          <span className="font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase">
-            SYS://PROJECTS
-          </span>
+          <SectionLabel label="SYS://PROJECTS" />
 
           <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
             {projects.map((project) => (

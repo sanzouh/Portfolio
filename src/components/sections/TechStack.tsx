@@ -8,6 +8,7 @@ import {
   SiJest, SiSwagger,
 } from "@icons-pack/react-simple-icons"
 import { stackCategories } from "@/data/portfolio"
+import { SectionLabel } from "@/components/SectionLabel"
 
 type IconProps = { size?: number; color?: string; className?: string }
 type IconComponent = ComponentType<IconProps>
@@ -37,9 +38,7 @@ export function TechStack() {
   return (
     <section id="tech" className="px-6 md:px-12 lg:px-24 py-24">
       <div className="w-full max-w-7xl mx-auto">
-        <span className="text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
-          SYS://TECH
-        </span>
+        <SectionLabel label="SYS://TECH" />
 
         <div className="mt-10 flex flex-col gap-8">
           {stackCategories.map((category) => (
