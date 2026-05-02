@@ -2,26 +2,28 @@ import { useState } from 'react'
 import Groq from 'groq-sdk'
 import { owner, links, about, services, stack, stackCategories, projects, experiences } from '../data/portfolio'
 
-interface Message {
-  role: 'user' | 'assistant'
-  text: string
-}
-
 const groq = new Groq({
-  apiKey: import.meta.env.VITE_GROQ_KEY,
+  apiKey: import.meta.env.VITE_GROQ_KEY as string,
   dangerouslyAllowBrowser: true,
 })
 
-function buildSystemPrompt() {
+type Role = 'user' | 'assistant'
+
+interface Message {
+  role: Role
+  text: string
+}
+
+function buildSystemPrompt(): string {
   const stackList = stack?.join(', ') || ''
   
-  const projectsText = projects?.map((proj, i) =>
+  const projectsText = projects?.map((proj: any, i: number) =>
     `${i + 1}. ${proj.name} — ${proj.shortDesc}
    Stack : ${proj.tags?.join(', ')}
    Catégorie : ${proj.category}`
   ).join('\n\n') || ''
   
-  const experienceText = experiences?.map(e =>
+  const experienceText = experiences?.map((e: any) =>
     `- ${e.period} : ${e.role} chez ${e.company}`
   ).join('\n') || ''
 
@@ -49,9 +51,9 @@ Réponds toujours sur la base de ces informations précises. Sois honnête et di
 
 export function useAgent() {
   const [messages, setMessages] = useState<Message[]>([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const send = async (userText: string) => {
+  const send = async (userText: string): Promise<void> => {
     setLoading(true)
     const newMessages: Message[] = [...messages, { role: 'user', text: userText }]
     setMessages(newMessages)
@@ -68,16 +70,15 @@ export function useAgent() {
         ],
       })
 
-      const reply = response.choices[0].message.content
+      const reply: string = response.choices[0].message.content
       setMessages([...newMessages, { role: 'assistant', text: reply }])
 
-    } catch (e) {
-      const error = e as Error
+    } catch (e: any) {
       setMessages([...newMessages, {
         role: 'assistant',
-        text: error.message?.includes('429')
+        text: e.message?.includes('429')
           ? 'Trop de requêtes, réessaie dans une minute. 🙏'
-          : 'Erreur de connexion : ' + error.message,
+          : 'Erreur de connexion : ' + e.message,
       }])
     }
 
