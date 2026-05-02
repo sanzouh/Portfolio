@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useForm, ValidationError } from "@formspree/react"
 import { Mail, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -42,66 +43,70 @@ export function Contact() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const trigger = { trigger: sectionRef.current, start: "top 82%", once: true }
-
-      gsap.from(".contact-sys", {
-        opacity: 0,
-        x: -12,
-        duration: 0.5,
-        ease: "power2.out",
-        scrollTrigger: trigger,
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top 82%",
+        once: true,
+        onEnter: () => {
+          gsap
+            .timeline()
+            .fromTo(
+              ".contact-sys",
+              { opacity: 0, x: -12 },
+              { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" },
+            )
+            .fromTo(
+              ".contact-heading-1",
+              { opacity: 0, y: 28 },
+              { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" },
+              "-=0.2",
+            )
+            .fromTo(
+              ".contact-heading-2",
+              { opacity: 0, y: 28 },
+              { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" },
+              "-=0.55",
+            )
+            .fromTo(
+              ".contact-desc",
+              { opacity: 0, y: 14 },
+              { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" },
+              "-=0.35",
+            )
+            .fromTo(
+              ".contact-field",
+              { opacity: 0, x: -16 },
+              {
+                opacity: 1,
+                x: 0,
+                stagger: 0.08,
+                duration: 0.5,
+                ease: "power2.out",
+              },
+              "-=0.25",
+            )
+            .fromTo(
+              ".contact-submit",
+              { opacity: 0, y: 10 },
+              { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
+              "-=0.2",
+            )
+            .fromTo(
+              ".contact-block",
+              { opacity: 0, x: 16 },
+              {
+                opacity: 1,
+                x: 0,
+                stagger: 0.1,
+                duration: 0.55,
+                ease: "power2.out",
+              },
+              "-=0.45",
+            )
+        },
       })
 
-      gsap.from(".contact-heading-1", {
-        opacity: 0,
-        y: 28,
-        duration: 0.7,
-        ease: "power3.out",
-        scrollTrigger: { ...trigger, start: "top 80%" },
-      })
-
-      gsap.from(".contact-heading-2", {
-        opacity: 0,
-        y: 28,
-        duration: 0.7,
-        ease: "power3.out",
-        delay: 0.08,
-        scrollTrigger: { ...trigger, start: "top 80%" },
-      })
-
-      gsap.from(".contact-desc", {
-        opacity: 0,
-        y: 14,
-        duration: 0.55,
-        ease: "power2.out",
-        scrollTrigger: { ...trigger, start: "top 78%" },
-      })
-
-      gsap.from(".contact-field", {
-        opacity: 0,
-        x: -16,
-        stagger: 0.08,
-        duration: 0.5,
-        ease: "power2.out",
-        scrollTrigger: { ...trigger, start: "top 75%" },
-      })
-
-      gsap.from(".contact-submit", {
-        opacity: 0,
-        y: 10,
-        duration: 0.45,
-        ease: "power2.out",
-        scrollTrigger: { ...trigger, start: "top 72%" },
-      })
-
-      gsap.from(".contact-block", {
-        opacity: 0,
-        x: 16,
-        stagger: 0.1,
-        duration: 0.55,
-        ease: "power2.out",
-        scrollTrigger: { ...trigger, start: "top 78%" },
-      })
+      ScrollTrigger.refresh()
     }, sectionRef)
 
     return () => ctx.revert()
