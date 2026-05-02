@@ -62,7 +62,7 @@ export function FloatingAgent() {
               </div>
             )}
 
-            {messages.map((m, i) => (
+            {messages.map((m: { role: 'user' | 'assistant'; text: string }, i: number) => (
               <div
                 key={i}
                 className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
