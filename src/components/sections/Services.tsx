@@ -38,7 +38,7 @@ export function Services() {
           SYS://SERVICES
         </SectionLabel>
 
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-px border border-border/50 rounded-sm overflow-hidden">
+        <div className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border/50 md:grid-cols-3">
           {services.map((service) => (
             <div
               key={service.number}
@@ -47,7 +47,7 @@ export function Services() {
               {/* Watermark number */}
               <span
                 aria-hidden
-                className="absolute -top-2 right-4 text-8xl font-black text-foreground/[0.04] select-none leading-none transition-colors group-hover:text-primary/10"
+                className="absolute -top-2 right-4 text-8xl leading-none font-black text-foreground/4 transition-colors select-none group-hover:text-primary/10"
               >
                 {service.number}
               </span>
@@ -57,7 +57,7 @@ export function Services() {
                 {service.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-[10px] font-mono tracking-widest text-muted-foreground/60"
+                    className="font-mono text-[10px] tracking-widest text-muted-foreground/60"
                   >
                     {tag}
                   </span>
@@ -73,12 +73,12 @@ export function Services() {
               </h3>
 
               {/* Description */}
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm leading-relaxed text-muted-foreground">
                 {service.description}
               </p>
 
               {/* Left border accent on hover */}
-              <span className="absolute left-0 top-0 h-full w-[2px] bg-primary scale-y-0 origin-top transition-transform duration-300 group-hover:scale-y-100" />
+              <span className="absolute top-0 left-0 h-full w-0.5 origin-top scale-y-0 bg-primary transition-transform duration-300 group-hover:scale-y-100" />
             </div>
           ))}
         </div>

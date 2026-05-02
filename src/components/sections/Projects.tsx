@@ -176,7 +176,7 @@ export function Projects() {
                   onClick={() => setOpenId(null)}
                 >
                   <ArrowLeft className="size-3.5" />
-                  BACK
+                  RETOUR
                 </Button>
               </div>
 
@@ -195,7 +195,7 @@ export function Projects() {
 
                   <div>
                     <h2 className="mb-3 text-xs font-semibold tracking-[0.15em] text-muted-foreground/50 uppercase">
-                      Overview
+                      Aperçu
                     </h2>
                     <p className="text-base leading-relaxed text-foreground">
                       {openProject.shortDesc}
@@ -204,7 +204,7 @@ export function Projects() {
 
                   <div>
                     <h2 className="mb-3 text-xs font-semibold tracking-[0.15em] text-muted-foreground/50 uppercase">
-                      Technical Details
+                      Détails Techniques
                     </h2>
                     <p className="text-sm leading-relaxed text-muted-foreground">
                       {openProject.deepDive}
@@ -237,7 +237,7 @@ export function Projects() {
                           className="inline-flex items-center gap-2 font-mono text-xs text-primary transition-colors hover:text-primary/70"
                         >
                           <GithubIcon className="size-4" />
-                          Source code
+                          Code source
                         </a>
                       )}
                       {openProject.live && (
@@ -247,7 +247,7 @@ export function Projects() {
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 font-mono text-xs text-primary transition-colors hover:text-primary/70"
                         >
-                          ↗ Live demo
+                          ↗ Demo live
                         </a>
                       )}
                     </div>
@@ -265,11 +265,12 @@ export function Projects() {
                   </div>
                   <div className="rounded-sm border border-primary/20 bg-primary/5 p-4">
                     <p className="mb-2 font-mono text-xs tracking-[0.2em] text-primary/60 uppercase">
-                      Project Preview
+                      Aperçu du projet
                     </p>
                     <p className="text-sm leading-relaxed text-muted-foreground">
-                      This project showcases {openProject.name}. Click the links
-                      above to explore the source code or visit the live demo.
+                      Ce projet présente {openProject.name}. Cliquez sur les
+                      liens à côté pour consulter le code source ou découvrir la
+                      démo en ligne.
                     </p>
                   </div>
                 </div>
