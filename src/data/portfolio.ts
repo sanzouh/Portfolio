@@ -152,6 +152,51 @@ export const projects: Project[] = [
     deepDive:
       "API REST Node.js/Express avec Prisma ORM. Gestion des conflits horaires (professeur, salle, classe) via contraintes multi-entités. Interface React avec détection en temps réel des chevauchements. Tests unitaires Jest et migrations Prisma automatisées.",
   },
+  {
+    id: "05",
+    category: "MÉTIER · COMMERCE",
+    name: "Gestion Facture",
+    tags: ["Python", "Tkinter", "SQLite3"],
+    github: "https://github.com/sanzouh/gestion_facture",
+    live: null,
+    screenshot: "projects_screenshots/gestion-facture-pic-1.png",
+    shortDesc: "Application desktop de gestion de factures en Python/Tkinter",
+    deepDive:
+      "Application de gestion de factures desktop en Python/Tkinter avec authentification multi-rôles (admin/utilisateur), CRUD factures utilisateur, base SQLite locale, audit automatique via triggers SQL, journal d'action et supervision admin en temps réel. Interface riche, contrôle d'accès, création de comptes et traçabilité des opérations.",
+  },
+  {
+    id: "06",
+    category: "APPLICATION MÉTIER · DESKTOP",
+    name: "Gestion Affectation",
+    tags: ["Java 17", "JavaFX", "Hibernate", "MySQL", "Maven", "Lombok"],
+    github: "https://github.com/sanzouh/GestionAffectation",
+    live: null,
+    screenshot: "projects_screenshots/gestion-affectation-pic-1.png",
+    shortDesc:
+      "Application desktop JavaFX de gestion des affectations des employés avec persistance Hibernate/MySQL.",
+    deepDive:
+      "Application de bureau JavaFX pour gérer employés, lieux et affectations avec CRUD complet, recherche en temps réel et gestion des affectations par clé composite (employé + lieu + date). Architecture Java 17 avec Hibernate ORM, persistance MySQL, configuration Maven et génération de code Lombok.",
+  },
+  {
+    id: "07",
+    category: "BACKEND · API REST",
+    name: "UniTrack",
+    tags: [
+      "Java 17",
+      "Spring Boot 3",
+      "Spring Data JPA",
+      "Hibernate",
+      "MySQL",
+      "Maven",
+    ],
+    github: "https://github.com/sanzouh/unitrack",
+    live: null,
+    screenshot: null,
+    shortDesc:
+      "API REST backend de gestion d'étudiants avec Spring Boot, persistance MySQL et architecture en couches.",
+    deepDive:
+      "Développement du backend UniTrack en Java 17 / Spring Boot 3 avec couche controller-service-repository, validation des données, gestion d'exceptions et persistance MySQL via JPA/Hibernate. L'API expose les opérations CRUD sur les étudiants ainsi qu'un endpoint de statistiques (moyenne générale, min, max). Le frontend a été implémenté séparément et n'est pas inclus dans ce repository.",
+  },
 ]
 
 export type Experience = {
