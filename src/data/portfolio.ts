@@ -17,6 +17,7 @@ export const links = {
   email: "santaherizo2.0@gmail.com",
   phone: "+261 34 41 140 66",
   cv: "/CV-Final-RAZAFINDRAKOTO-Santa-Herizo.pdf",
+  formspree: "mqenavoe",
 } as const
 
 export const about = {
