@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header"
 import { Hero } from "@/components/sections/Hero"
 import { About } from "@/components/sections/About"
+import { Services } from "@/components/sections/Services"
 
 export default function App() {
   return (
@@ -9,6 +10,7 @@ export default function App() {
       <main className="pt-14">
         <Hero />
         <About />
+        <Services />
       </main>
     </div>
   )
