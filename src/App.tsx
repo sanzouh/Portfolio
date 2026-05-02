@@ -1,4 +1,5 @@
 import { Header } from "@/components/Header"
+import { ScrollProgress } from "@/components/ScrollProgress"
 import { Hero } from "@/components/sections/Hero"
 import { About } from "@/components/sections/About"
 import { Services } from "@/components/sections/Services"
@@ -16,6 +17,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      <ScrollProgress />
       <main className="pt-14">
         <Hero />
         <About />

@@ -19,6 +19,67 @@ export function Projects() {
   const openProject = openId
     ? (projects.find((p) => p.id === openId) ?? null)
     : null
+  const prefersReducedMotion = () =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
+  const openProjectDetail = (id: string) => {
+    if (openId === id) return
+
+    const grid = gridRef.current
+
+    if (!grid || prefersReducedMotion()) {
+      setOpenId(id)
+      return
+    }
+
+    gsap.killTweensOf(grid)
+    gsap.to(grid, {
+      opacity: 0,
+      y: -18,
+      filter: "blur(6px)",
+      duration: 0.3,
+      ease: "power2.inOut",
+      onComplete: () => setOpenId(id),
+    })
+  }
+
+  const closeProjectDetail = () => {
+    const detail = detailRef.current
+
+    if (!detail || prefersReducedMotion()) {
+      setOpenId(null)
+      requestAnimationFrame(() => {
+        gsap.set(gridRef.current, { clearProps: "opacity,y,filter" })
+      })
+      return
+    }
+
+    gsap.killTweensOf(detail)
+    gsap.to(detail, {
+      opacity: 0,
+      y: 10,
+      filter: "blur(3px)",
+      duration: 0.16,
+      ease: "power2.in",
+      onComplete: () => {
+        setOpenId(null)
+        requestAnimationFrame(() => {
+          gsap.fromTo(
+            gridRef.current,
+            { opacity: 0, y: -12, filter: "blur(4px)" },
+            {
+              opacity: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: 0.2,
+              ease: "power2.out",
+              clearProps: "opacity,y,filter",
+            },
+          )
+        })
+      },
+    })
+  }
 
   // Scroll-triggered entrance for the grid cards (runs once)
   useLayoutEffect(() => {
@@ -59,11 +120,74 @@ export function Projects() {
   // Animate detail view open
   useEffect(() => {
     if (openProject && detailRef.current) {
-      gsap.fromTo(
-        detailRef.current,
-        { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
-      )
+      requestAnimationFrame(() => {
+        const detail = detailRef.current
+        if (!detail) return
+
+        const rect = detail.getBoundingClientRect()
+        const headerOffset = 112
+        const absoluteTop = window.scrollY + rect.top
+        const availableHeight = window.innerHeight - headerOffset
+        const centeredTop = absoluteTop - (availableHeight - rect.height) / 2
+        const topWithBackButtonVisible = absoluteTop - headerOffset
+        const targetTop =
+          rect.height > availableHeight
+            ? topWithBackButtonVisible
+            : Math.min(centeredTop, topWithBackButtonVisible)
+        const reduceMotion = prefersReducedMotion()
+
+        window.scrollTo({
+          top: Math.max(targetTop, 0),
+          behavior: reduceMotion ? "auto" : "smooth",
+        })
+
+        if (reduceMotion) {
+          gsap.set(detail, { clearProps: "opacity,y,filter" })
+          return
+        }
+
+        const detailItems = detail.querySelectorAll(".project-detail-item")
+        const detailMedia = detail.querySelectorAll(".project-detail-media")
+
+        gsap
+          .timeline()
+          .fromTo(
+            detail,
+            { opacity: 0, y: 22, filter: "blur(6px)" },
+            {
+              opacity: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: 0.5,
+              ease: "power2.out",
+            },
+          )
+          .fromTo(
+            detailItems,
+            { opacity: 0, y: 14 },
+            {
+              opacity: 1,
+              y: 0,
+              stagger: 0.06,
+              duration: 0.42,
+              ease: "power2.out",
+            },
+            "-=0.28",
+          )
+          .fromTo(
+            detailMedia,
+            { opacity: 0, y: 18, scale: 0.97 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              stagger: 0.08,
+              duration: 0.5,
+              ease: "power2.out",
+            },
+            "-=0.38",
+          )
+      })
     }
   }, [openProject])
 
@@ -90,7 +214,7 @@ export function Projects() {
                   "project-card group relative flex cursor-pointer flex-col gap-4 rounded-sm border p-6 transition-all duration-200",
                   "border-border/50 bg-card hover:border-primary/50 hover:bg-primary/3 hover:shadow-[0_0_20px_-8px_hsl(var(--primary)/0.1)]",
                 )}
-                onClick={() => setOpenId(project.id)}
+                onClick={() => openProjectDetail(project.id)}
               >
                 <span
                   aria-hidden
@@ -168,12 +292,12 @@ export function Projects() {
           {openProject && (
             <div ref={detailRef} className="space-y-6">
               {/* Back Button */}
-              <div className="flex items-center gap-3">
+              <div className="project-detail-item flex items-center gap-3">
                 <Button
                   variant="outline"
                   size="sm"
                   className="gap-2 font-mono text-xs tracking-widest"
-                  onClick={() => setOpenId(null)}
+                  onClick={closeProjectDetail}
                 >
                   <ArrowLeft className="size-3.5" />
                   RETOUR
@@ -184,7 +308,7 @@ export function Projects() {
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.2fr]">
                 {/* Left: Summary */}
                 <div className="space-y-6">
-                  <div>
+                  <div className="project-detail-item">
                     <span className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground/40 uppercase">
                       {openProject.category}
                     </span>
@@ -193,7 +317,7 @@ export function Projects() {
                     </h1>
                   </div>
 
-                  <div>
+                  <div className="project-detail-item">
                     <h2 className="mb-3 text-xs font-semibold tracking-[0.15em] text-muted-foreground/50 uppercase">
                       Aperçu
                     </h2>
@@ -202,7 +326,7 @@ export function Projects() {
                     </p>
                   </div>
 
-                  <div>
+                  <div className="project-detail-item">
                     <h2 className="mb-3 text-xs font-semibold tracking-[0.15em] text-muted-foreground/50 uppercase">
                       Détails Techniques
                     </h2>
@@ -211,7 +335,7 @@ export function Projects() {
                     </p>
                   </div>
 
-                  <div>
+                  <div className="project-detail-item">
                     <h2 className="mb-3 text-xs font-semibold tracking-[0.15em] text-muted-foreground/50 uppercase">
                       Technologies
                     </h2>
@@ -228,7 +352,7 @@ export function Projects() {
                   </div>
 
                   {(openProject.github || openProject.live) && (
-                    <div className="flex gap-4 border-t border-border/30 pt-6">
+                    <div className="project-detail-item flex gap-4 border-t border-border/30 pt-6">
                       {openProject.github && (
                         <a
                           href={openProject.github}
@@ -256,14 +380,14 @@ export function Projects() {
 
                 {/* Right: Screenshot */}
                 <div className="flex flex-col gap-4">
-                  <div className="overflow-hidden rounded-sm border border-border/50 bg-muted/10">
+                  <div className="project-detail-media overflow-hidden rounded-sm border border-border/50 bg-muted/10">
                     <img
                       src={openProject.screenshot ?? DEFAULT_SCREENSHOT}
                       alt={`${openProject.name} preview`}
                       className="w-full object-cover"
                     />
                   </div>
-                  <div className="rounded-sm border border-primary/20 bg-primary/5 p-4">
+                  <div className="project-detail-media rounded-sm border border-primary/20 bg-primary/5 p-4">
                     <p className="mb-2 font-mono text-xs tracking-[0.2em] text-primary/60 uppercase">
                       Aperçu du projet
                     </p>
