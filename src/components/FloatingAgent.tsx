@@ -1,4 +1,4 @@
-import { useAgent } from '@/hooks/useAgent'
+import { useAgent } from '@/hooks/useAgent.ts'
 import { useState } from 'react'
 import { Send, MessageCircle, X } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
