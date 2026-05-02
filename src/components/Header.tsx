@@ -39,7 +39,7 @@ export function Header() {
           >
             <Download className="size-3.5" />
             <span className="hidden font-mono text-xs tracking-widest sm:inline">
-              DOWNLOAD CV
+              TELECHARGER CV
             </span>
           </Button>
         </a>
