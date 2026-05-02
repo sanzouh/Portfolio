@@ -43,69 +43,6 @@ export function Contact() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const trigger = {
-        trigger: sectionRef.current,
-        start: "top 82%",
-        once: true,
-      }
-
-      gsap.from(".contact-sys", {
-        opacity: 0,
-        x: -12,
-        duration: 0.5,
-        ease: "power2.out",
-        scrollTrigger: trigger,
-      })
-
-      gsap.from(".contact-heading-1", {
-        opacity: 0,
-        y: 28,
-        duration: 0.7,
-        ease: "power3.out",
-        scrollTrigger: { ...trigger, start: "top 80%" },
-      })
-
-      gsap.from(".contact-heading-2", {
-        opacity: 0,
-        y: 28,
-        duration: 0.7,
-        ease: "power3.out",
-        delay: 0.08,
-        scrollTrigger: { ...trigger, start: "top 80%" },
-      })
-
-      gsap.from(".contact-desc", {
-        opacity: 0,
-        y: 14,
-        duration: 0.55,
-        ease: "power2.out",
-        scrollTrigger: { ...trigger, start: "top 78%" },
-      })
-
-      gsap.from(".contact-field", {
-        opacity: 0,
-        x: -16,
-        stagger: 0.08,
-        duration: 0.5,
-        ease: "power2.out",
-        scrollTrigger: { ...trigger, start: "top 75%" },
-      })
-
-      gsap.from(".contact-submit", {
-        opacity: 0,
-        y: 10,
-        duration: 0.45,
-        ease: "power2.out",
-        scrollTrigger: { ...trigger, start: "top 72%" },
-      })
-
-      gsap.from(".contact-block", {
-        opacity: 0,
-        x: 16,
-        stagger: 0.1,
-        duration: 0.55,
-        ease: "power2.out",
-        scrollTrigger: { ...trigger, start: "top 78%" },
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top 82%",
@@ -348,7 +285,7 @@ export function Contact() {
               href="https://wa.me/261344114066?text=Bonjour%20Santa%2C%20je%20souhaiterais%20discuter%20d%27un%20projet%20avec%20toi."
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-sm border border-border/50 bg-card px-5 py-4 transition-all duration-200 hover:border-primary/60 hover:bg-primary/5 hover:shadow-[0_0_20px_-8px_hsl(var(--primary)/0.2)]"
+              className="contact-block group flex items-center gap-4 rounded-sm border border-border/50 bg-card px-5 py-4 transition-all duration-200 hover:border-primary/60 hover:bg-primary/5 hover:shadow-[0_0_20px_-8px_hsl(var(--primary)/0.2)]"
             >
               <div className="flex size-9 shrink-0 items-center justify-center rounded-sm border border-border/50 bg-muted/30 transition-colors group-hover:border-primary/50 group-hover:text-primary">
                 <WhatsappIcon className="size-4" />
