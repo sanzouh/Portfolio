@@ -3,8 +3,8 @@ import { gsap } from "gsap"
 import { useForm, ValidationError } from "@formspree/react"
 import { Mail, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { LinkedinIcon, WhatsappIcon } from "@/components/icons"
 import { SectionLabel } from "@/components/ui/section-label"
-import { LinkedinIcon } from "@/components/icons"
 import { links } from "@/data/portfolio"
 import { cn } from "@/lib/utils"
 
@@ -42,7 +42,11 @@ export function Contact() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const trigger = { trigger: sectionRef.current, start: "top 82%", once: true }
+      const trigger = {
+        trigger: sectionRef.current,
+        start: "top 82%",
+        once: true,
+      }
 
       gsap.from(".contact-sys", {
         opacity: 0,
@@ -108,19 +112,25 @@ export function Contact() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="contact" className="px-6 py-24 md:px-12 lg:px-24">
+    <section
+      ref={sectionRef}
+      id="contact"
+      className="px-6 py-24 md:px-12 lg:px-24"
+    >
       <div data-parallax="24" className="mx-auto w-full max-w-7xl">
-        <SectionLabel className="contact-sys">
-          SYS://CONTACT
-        </SectionLabel>
+        <SectionLabel className="contact-sys">SYS://CONTACT</SectionLabel>
 
         <div className="mt-10 grid grid-cols-1 items-start gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">
           {/* Left — form */}
           <div className="flex flex-col gap-6">
             <div>
               <h2 className="text-4xl leading-none font-black tracking-tight uppercase md:text-5xl lg:text-6xl">
-                <span className="contact-heading-1 block text-foreground">TRAVAILLONS</span>
-                <span className="contact-heading-2 block text-primary">ENSEMBLE.</span>
+                <span className="contact-heading-1 block text-foreground">
+                  TRAVAILLONS
+                </span>
+                <span className="contact-heading-2 block text-primary">
+                  ENSEMBLE.
+                </span>
               </h2>
               <p className="contact-desc mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
                 Vous souhaitez discuter, collaborer ou échanger sur un projet ?{" "}
@@ -164,7 +174,10 @@ export function Contact() {
                       name="email"
                       placeholder="you@example.com"
                       required
-                      className={cn(inputClass, emailError && "border-destructive/60")}
+                      className={cn(
+                        inputClass,
+                        emailError && "border-destructive/60"
+                      )}
                     />
                     <ValidationError
                       field="email"
@@ -189,7 +202,11 @@ export function Contact() {
                     rows={5}
                     placeholder="Décrivez votre projet ou votre demande..."
                     required
-                    className={cn(inputClass, "resize-none", messageError && "border-destructive/60")}
+                    className={cn(
+                      inputClass,
+                      "resize-none",
+                      messageError && "border-destructive/60"
+                    )}
                   />
                   <ValidationError
                     field="message"
@@ -256,6 +273,28 @@ export function Contact() {
                 </span>
                 <span className="truncate text-xs font-medium text-foreground/70 transition-colors group-hover:text-primary">
                   /in/santa-herizo
+                </span>
+              </div>
+              <span className="ml-auto shrink-0 text-sm text-muted-foreground/30 transition-colors group-hover:text-primary/60">
+                ↗
+              </span>
+            </a>
+
+            <a
+              href="https://wa.me/261344114066?text=Bonjour%20Santa%2C%20je%20souhaiterais%20discuter%20d%27un%20projet%20avec%20toi."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-4 rounded-sm border border-border/50 bg-card px-5 py-4 transition-all duration-200 hover:border-primary/60 hover:bg-primary/5 hover:shadow-[0_0_20px_-8px_hsl(var(--primary)/0.2)]"
+            >
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-sm border border-border/50 bg-muted/30 transition-colors group-hover:border-primary/50 group-hover:text-primary">
+                <WhatsappIcon className="size-4" />
+              </div>
+              <div className="flex min-w-0 flex-col gap-0.5">
+                <span className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground/50 uppercase">
+                  WhatsApp
+                </span>
+                <span className="truncate text-xs font-medium text-foreground/70 transition-colors group-hover:text-primary">
+                  +261 34 41 140 66
                 </span>
               </div>
               <span className="ml-auto shrink-0 text-sm text-muted-foreground/30 transition-colors group-hover:text-primary/60">
