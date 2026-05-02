@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ChevronDown, ArrowLeft } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { GithubIcon } from "@/components/icons"
 import { projects } from "@/data/portfolio"
@@ -15,8 +15,8 @@ export function Projects() {
     : null
 
   return (
-    <section id="projects" className="px-6 md:px-12 lg:px-24 py-24">
-      <div className="w-full max-w-7xl mx-auto relative">
+    <section id="projects" className="px-6 py-24 md:px-12 lg:px-24">
+      <div className="relative mx-auto w-full max-w-7xl">
         {/* Grid View */}
         <div
           className={cn(
@@ -24,11 +24,11 @@ export function Projects() {
             openProject ? "pointer-events-none opacity-0" : "opacity-100"
           )}
         >
-          <span className="text-xs font-mono tracking-[0.3em] text-muted-foreground uppercase">
+          <span className="font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase">
             SYS://PROJECTS
           </span>
 
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
             {projects.map((project) => (
               <div
                 key={project.id}
@@ -40,7 +40,7 @@ export function Projects() {
               >
                 <span
                   aria-hidden
-                  className="absolute right-5 top-4 select-none font-black leading-none text-6xl text-foreground/4 group-hover:text-primary/12 transition-colors"
+                  className="absolute top-4 right-5 text-6xl leading-none font-black text-foreground/4 transition-colors select-none group-hover:text-primary/12"
                 >
                   {project.id}
                 </span>
@@ -49,7 +49,7 @@ export function Projects() {
                   {project.category}
                 </span>
 
-                <h3 className="text-lg font-bold leading-tight group-hover:text-primary transition-colors">
+                <h3 className="text-lg leading-tight font-bold transition-colors group-hover:text-primary">
                   {project.name}
                 </h3>
 
@@ -84,7 +84,9 @@ export function Projects() {
                         className="gap-2 border-border/60 hover:border-primary hover:bg-primary/10 hover:text-primary"
                       >
                         <GithubIcon className="size-4" />
-                        <span className="font-mono text-xs tracking-wide">GitHub</span>
+                        <span className="font-mono text-xs tracking-wide">
+                          GitHub
+                        </span>
                       </Button>
                     </a>
                   )}
@@ -100,7 +102,9 @@ export function Projects() {
                         className="gap-2 border-border/60 hover:border-primary hover:bg-primary/10 hover:text-primary"
                       >
                         <span className="text-sm leading-none">↗</span>
-                        <span className="font-mono text-xs tracking-wide">Live</span>
+                        <span className="font-mono text-xs tracking-wide">
+                          Live
+                        </span>
                       </Button>
                     </a>
                   )}
@@ -115,8 +119,8 @@ export function Projects() {
           className={cn(
             "absolute inset-0 top-0 left-0 transition-all duration-500 ease-in-out",
             openProject
-              ? "opacity-100 pointer-events-auto"
-              : "opacity-0 pointer-events-none"
+              ? "pointer-events-auto opacity-100"
+              : "pointer-events-none opacity-0"
           )}
         >
           {openProject && (
@@ -142,13 +146,13 @@ export function Projects() {
                     <span className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground/40 uppercase">
                       {openProject.category}
                     </span>
-                    <h1 className="mt-2 text-4xl font-black text-primary leading-tight">
+                    <h1 className="mt-2 text-4xl leading-tight font-black text-primary">
                       {openProject.name}
                     </h1>
                   </div>
 
                   <div>
-                    <h2 className="mb-3 text-xs font-semibold text-muted-foreground/50 uppercase tracking-[0.15em]">
+                    <h2 className="mb-3 text-xs font-semibold tracking-[0.15em] text-muted-foreground/50 uppercase">
                       Overview
                     </h2>
                     <p className="text-base leading-relaxed text-foreground">
@@ -157,7 +161,7 @@ export function Projects() {
                   </div>
 
                   <div>
-                    <h2 className="mb-3 text-xs font-semibold text-muted-foreground/50 uppercase tracking-[0.15em]">
+                    <h2 className="mb-3 text-xs font-semibold tracking-[0.15em] text-muted-foreground/50 uppercase">
                       Technical Details
                     </h2>
                     <p className="text-sm leading-relaxed text-muted-foreground">
@@ -166,7 +170,7 @@ export function Projects() {
                   </div>
 
                   <div>
-                    <h2 className="mb-3 text-xs font-semibold text-muted-foreground/50 uppercase tracking-[0.15em]">
+                    <h2 className="mb-3 text-xs font-semibold tracking-[0.15em] text-muted-foreground/50 uppercase">
                       Technologies
                     </h2>
                     <div className="flex flex-wrap gap-2">
@@ -182,7 +186,7 @@ export function Projects() {
                   </div>
 
                   {(openProject.github || openProject.live) && (
-                    <div className="flex gap-4 pt-4 border-t border-border/30 pt-6">
+                    <div className="flex gap-4 border-t border-border/30 pt-6">
                       {openProject.github && (
                         <a
                           href={openProject.github}
@@ -218,12 +222,12 @@ export function Projects() {
                     />
                   </div>
                   <div className="rounded-sm border border-primary/20 bg-primary/5 p-4">
-                    <p className="text-xs font-mono tracking-[0.2em] text-primary/60 uppercase mb-2">
+                    <p className="mb-2 font-mono text-xs tracking-[0.2em] text-primary/60 uppercase">
                       Project Preview
                     </p>
                     <p className="text-sm leading-relaxed text-muted-foreground">
-                      This project showcases {openProject.name}. Click the links above to explore
-                      the source code or visit the live demo.
+                      This project showcases {openProject.name}. Click the links
+                      above to explore the source code or visit the live demo.
                     </p>
                   </div>
                 </div>
