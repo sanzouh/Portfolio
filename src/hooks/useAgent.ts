@@ -62,12 +62,12 @@ export function useAgent() {
       const response = await groq.chat.completions.create({
         model: 'llama-3.3-70b-versatile',
         messages: [
-          { role: 'system' as const, content: buildSystemPrompt() },
+          { role: 'system', content: buildSystemPrompt() } as const,
           ...newMessages.map(m => ({
-            role: (m.role === 'user' ? 'user' : 'assistant') as const,
+            role: m.role === 'user' ? ('user' as const) : ('assistant' as const),
             content: m.text,
           })),
-        ],
+        ] as any,
       })
 
       const reply = response.choices[0].message.content || ''
