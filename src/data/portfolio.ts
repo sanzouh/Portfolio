@@ -83,6 +83,7 @@ export type Project = {
   tags: string[]
   github: string | null
   live: string | null
+  screenshot: string | null
   shortDesc: string
   deepDive: string
 }
@@ -95,6 +96,7 @@ export const projects: Project[] = [
     tags: ["Java 21", "Swing", "H2 Database", "JFreeChart", "Apache POI"],
     github: null,
     live: null,
+    screenshot: null,
     shortDesc: "Système d'Information Décisionnel RH",
     deepDive:
       "Pipeline ETL multi-sources (CSV, Excel, SQLite) avec nettoyage, normalisation et chargement dans un Data Warehouse H2 en schéma étoile (5 dimensions, 12 KPI). Dashboard Swing interactif avec filtrage dynamique, graphiques JFreeChart et système d'insights automatiques.",
@@ -106,6 +108,7 @@ export const projects: Project[] = [
     tags: ["React", "Laravel", "Docker", "MySQL", "PHPUnit", "Swagger"],
     github: null,
     live: null,
+    screenshot: null,
     shortDesc: "Système de Gestion Bancaire avec Audit Automatisé",
     deepDive:
       "Triggers SQL (INSERT/UPDATE/DELETE) pour audit automatique. API REST sécurisée avec Sanctum et contrôle d'accès par rôle. Conteneurisation complète PHP-FPM + Nginx + MySQL + React. Tests PHPUnit et documentation OpenAPI/Swagger.",
@@ -117,6 +120,7 @@ export const projects: Project[] = [
     tags: ["React", "TypeScript", "Tailwind CSS v4", "shadcn/ui", "Vercel"],
     github: null,
     live: null,
+    screenshot: null,
     shortDesc: "Optimiseur de Portefeuille par Algorithme Génétique",
     deepDive:
       "Algorithme génétique complet (sélection, croisement, mutation, élitisme) pour optimisation bi-objectif rendement/risque selon Markowitz. Front de Pareto dynamique (O(n²)), visualisation temps réel, filtrage multicritère, comparaison vs S&P 500. CI/CD GitHub Actions + Vercel.",
@@ -128,6 +132,7 @@ export const projects: Project[] = [
     tags: ["Node.js", "Express", "Prisma", "SQLite", "React 19", "Jest"],
     github: null,
     live: null,
+    screenshot: null,
     shortDesc: "Plateforme de Gestion d'Emplois du Temps Universitaire",
     deepDive:
       "API REST Node.js/Express avec Prisma ORM. Gestion des conflits horaires (professeur, salle, classe) via contraintes multi-entités. Interface React avec détection en temps réel des chevauchements. Tests unitaires Jest et migrations Prisma automatisées.",
