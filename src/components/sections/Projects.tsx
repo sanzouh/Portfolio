@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { GithubIcon } from "@/components/icons"
@@ -10,13 +10,20 @@ const DEFAULT_SCREENSHOT = "/project-image-not-found.png"
 
 export function Projects() {
   const [openId, setOpenId] = useState<string | null>(null)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (openId && sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+  }, [openId])
 
   const openProject = openId
     ? (projects.find((p) => p.id === openId) ?? null)
     : null
 
   return (
-    <section id="projects" className="px-6 py-24 md:px-12 lg:px-24">
+    <section id="projects" ref={sectionRef} className="px-6 py-24 md:px-12 lg:px-24">
       <div className="relative mx-auto w-full max-w-7xl">
         {/* Grid View */}
         <div
