@@ -82,7 +82,7 @@ export function Hero() {
 
             return gsap.to(state, {
               length: text.length,
-              duration: Math.min(9.0, Math.max(5.5, text.length * 0.082)),
+              duration: Math.min(6.5, Math.max(3.5, text.length * 0.062)),
               ease: "none",
               onUpdate: () => {
                 textElement.textContent = text.slice(0, Math.round(state.length))
@@ -95,7 +95,7 @@ export function Hero() {
 
             return gsap.to(state, {
               length: 0,
-              duration: Math.min(9.5, Math.max(6.0, text.length * 0.085)),
+              duration: Math.min(3.5, Math.max(2.0, text.length * 0.032)),
               ease: "none",
               onUpdate: () => {
                 textElement.textContent = text.slice(0, Math.round(state.length))
@@ -116,9 +116,9 @@ export function Hero() {
           heroTypingTexts.forEach((text) => {
             typingTimeline
               .add(typeText(text))
-              .to({}, { duration: 3.5 })
+              .to({}, { duration: 2.5 })
               .add(eraseText(text))
-              .to({}, { duration: 1.2 })
+              .to({}, { duration: 0.8 })
           })
         })
         .from(
