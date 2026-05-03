@@ -1,4 +1,5 @@
 import { Header } from "@/components/Header"
+import { CustomCursor } from "@/components/CustomCursor"
 import { ScrollProgress } from "@/components/ScrollProgress"
 import { Hero } from "@/components/sections/Hero"
 import { About } from "@/components/sections/About"
@@ -21,14 +22,15 @@ export default function App() {
       <main className="pt-14">
         <Hero />
         <About />
-        <Services />
-        <TechStack />
         <Projects />
         <Experience />
+        <Services />
+        <TechStack />
         <Contact />
       </main>
       <Footer />
       <FloatingAgent />
+      <CustomCursor />
     </div>
   )
 }

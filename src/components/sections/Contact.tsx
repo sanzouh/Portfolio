@@ -43,67 +43,23 @@ export function Contact() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      const tl = gsap
+        .timeline({ paused: true })
+        .fromTo(".contact-sys", { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" })
+        .fromTo(".contact-heading-1", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, "-=0.2")
+        .fromTo(".contact-heading-2", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, "-=0.55")
+        .fromTo(".contact-desc", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, "-=0.35")
+        .fromTo(".contact-field", { opacity: 0, x: -16 }, { opacity: 1, x: 0, stagger: 0.08, duration: 0.5, ease: "power2.out" }, "-=0.25")
+        .fromTo(".contact-submit", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, "-=0.2")
+        .fromTo(".contact-block", { opacity: 0, x: 16 }, { opacity: 1, x: 0, stagger: 0.1, duration: 0.55, ease: "power2.out" }, "-=0.45")
+
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top 82%",
-        once: true,
-        onEnter: () => {
-          gsap
-            .timeline()
-            .fromTo(
-              ".contact-sys",
-              { opacity: 0, x: -12 },
-              { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" },
-            )
-            .fromTo(
-              ".contact-heading-1",
-              { opacity: 0, y: 28 },
-              { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" },
-              "-=0.2",
-            )
-            .fromTo(
-              ".contact-heading-2",
-              { opacity: 0, y: 28 },
-              { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" },
-              "-=0.55",
-            )
-            .fromTo(
-              ".contact-desc",
-              { opacity: 0, y: 14 },
-              { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" },
-              "-=0.35",
-            )
-            .fromTo(
-              ".contact-field",
-              { opacity: 0, x: -16 },
-              {
-                opacity: 1,
-                x: 0,
-                stagger: 0.08,
-                duration: 0.5,
-                ease: "power2.out",
-              },
-              "-=0.25",
-            )
-            .fromTo(
-              ".contact-submit",
-              { opacity: 0, y: 10 },
-              { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
-              "-=0.2",
-            )
-            .fromTo(
-              ".contact-block",
-              { opacity: 0, x: 16 },
-              {
-                opacity: 1,
-                x: 0,
-                stagger: 0.1,
-                duration: 0.55,
-                ease: "power2.out",
-              },
-              "-=0.45",
-            )
-        },
+        onEnter: () => tl.play(),
+        onLeave: () => tl.reverse(),
+        onEnterBack: () => tl.play(),
+        onLeaveBack: () => tl.reverse(),
       })
 
       ScrollTrigger.refresh()

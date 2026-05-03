@@ -8,7 +8,7 @@ export function Experience() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const trigger = { trigger: sectionRef.current, start: "top 78%", once: true }
+      const trigger = { trigger: sectionRef.current, start: "top 78%", toggleActions: "play reverse play reverse" }
 
       gsap.from(".experience-sys", {
         opacity: 0,

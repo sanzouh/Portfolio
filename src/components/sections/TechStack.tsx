@@ -41,44 +41,26 @@ export function TechStack() {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      ScrollTrigger.create({
+      const st = {
         trigger: sectionRef.current,
-        start: "top 90%",
-        once: true,
-        onEnter: () => {
-          gsap
-            .timeline()
-            .fromTo(
-              ".tech-sys",
-              { opacity: 0, x: -12 },
-              { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" },
-            )
-            .fromTo(
-              ".tech-category",
-              { opacity: 0, x: -16 },
-              {
-                opacity: 1,
-                x: 0,
-                stagger: 0.1,
-                duration: 0.55,
-                ease: "power2.out",
-              },
-              "-=0.2",
-            )
-            .fromTo(
-              ".tech-badge",
-              { opacity: 0, y: 12 },
-              {
-                opacity: 1,
-                y: 0,
-                stagger: 0.03,
-                duration: 0.4,
-                ease: "power2.out",
-              },
-              "-=0.25",
-            )
-        },
-      })
+        start: "top 78%",
+        toggleActions: "play reverse play reverse",
+      }
+
+      gsap.fromTo(".tech-sys",
+        { opacity: 0, x: -12 },
+        { opacity: 1, x: 0, duration: 0.5, ease: "power2.out", immediateRender: false, scrollTrigger: st },
+      )
+
+      gsap.fromTo(".tech-category",
+        { opacity: 0, x: -16 },
+        { opacity: 1, x: 0, stagger: 0.1, duration: 0.55, ease: "power2.out", immediateRender: false, scrollTrigger: st },
+      )
+
+      gsap.fromTo(".tech-badge",
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, stagger: 0.03, duration: 0.4, ease: "power2.out", immediateRender: false, scrollTrigger: st },
+      )
 
       ScrollTrigger.refresh()
     }, sectionRef)

@@ -81,35 +81,34 @@ export function Projects() {
     })
   }
 
-  // Scroll-triggered entrance for the grid cards (runs once)
+  // Scroll-triggered entrance for the grid cards
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      ScrollTrigger.create({
+      const st = {
         trigger: sectionRef.current,
-        start: "top 90%",
-        once: true,
-        onEnter: () => {
-          gsap
-            .timeline()
-            .fromTo(
-              ".projects-sys",
-              { opacity: 0, x: -12 },
-              { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" },
-            )
-            .fromTo(
-              ".project-card",
-              { opacity: 0, y: 28 },
-              {
-                opacity: 1,
-                y: 0,
-                stagger: 0.1,
-                duration: 0.6,
-                ease: "power2.out",
-              },
-              "-=0.2",
-            )
+        start: "top 88%",
+        toggleActions: "play reverse play reverse",
+      }
+
+      gsap.fromTo(
+        ".projects-sys",
+        { opacity: 0, x: -12 },
+        { opacity: 1, x: 0, duration: 0.5, ease: "power2.out", immediateRender: false, scrollTrigger: st },
+      )
+
+      gsap.fromTo(
+        ".project-card",
+        { opacity: 0, y: 44 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.12,
+          duration: 0.65,
+          ease: "power3.out",
+          immediateRender: false,
+          scrollTrigger: st,
         },
-      })
+      )
 
       ScrollTrigger.refresh()
     }, sectionRef)

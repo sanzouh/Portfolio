@@ -16,7 +16,8 @@ export function About() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const trigger = { trigger: sectionRef.current, start: "top 80%", once: true }
+      const toggleActions = "play reverse play reverse"
+      const trigger = { trigger: sectionRef.current, start: "top 80%", toggleActions }
 
       gsap.from(".about-sys", {
         opacity: 0,
@@ -52,7 +53,7 @@ export function About() {
         scrollTrigger: { ...trigger, start: "top 78%" },
       })
 
-      // Count-up animation for numeric stats
+      // Count-up animation for numeric stats — restarts from 0 on each entry
       stats.forEach((stat, i) => {
         const el = statValueRefs.current[i]
         if (!el || typeof stat.value !== "number") return
@@ -65,12 +66,13 @@ export function About() {
           duration: 1.5,
           ease: "power2.out",
           onStart() {
+            obj.val = 0
             el.textContent = "0"
           },
           onUpdate() {
             el.textContent = Math.round(obj.val).toString()
           },
-          scrollTrigger: { ...trigger, start: "top 78%" },
+          scrollTrigger: { ...trigger, start: "top 78%", toggleActions: "restart none restart reset" },
         })
       })
     }, sectionRef)
