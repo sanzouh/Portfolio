@@ -7,7 +7,7 @@ const stats = [
   { value: projects.length, label: "projets livrés" },
   { value: experiences.length, label: "expériences pro" },
   { value: stack.length, label: "technos maîtrisées" },
-  { value: "3+", label: "ans de formation" },
+  { value: "5+", label: "ans de formation" },
 ]
 
 export function About() {
