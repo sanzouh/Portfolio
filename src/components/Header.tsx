@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
-import { Sun, Moon, Download, Menu, X } from "lucide-react"
+import { Download, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useTheme } from "@/components/theme-provider"
 import { links } from "@/data/portfolio"
 import { cn } from "@/lib/utils"
 
@@ -15,9 +14,6 @@ const NAV = [
 ]
 
 export function Header() {
-  const { theme, setTheme } = useTheme()
-  const isDark = theme !== "light"
-
   const [activeId, setActiveId]     = useState("home")
   const [mobileOpen, setMobileOpen] = useState(false)
 
