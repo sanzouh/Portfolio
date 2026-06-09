@@ -10,6 +10,88 @@ import { cn } from "@/lib/utils"
 
 const DEFAULT_SCREENSHOT = "/project-image-not-found.png"
 
+function ScreenshotGallery({ shots, name }: { shots: string[]; name: string }) {
+  const [hovered, setHovered] = useState<number | null>(null)
+
+  if (shots.length <= 1) {
+    return (
+      <div className="project-detail-media overflow-hidden rounded-sm border border-border/50 bg-muted/10">
+        <img
+          src={shots[0] ?? DEFAULT_SCREENSHOT}
+          alt={`${name} preview`}
+          className="w-full object-cover"
+        />
+      </div>
+    )
+  }
+
+  function getTransform(index: number): string {
+    const total = shots.length
+    const mid = (total - 1) / 2
+    const offset = index - mid
+    const spread = total === 2 ? 24 : 28
+
+    if (hovered === null) {
+      const tx = offset * spread
+      const ry = offset * -32
+      const sc = 1 - Math.abs(offset) * 0.1
+      return `translateX(${tx}%) rotateY(${ry}deg) scale(${sc})`
+    }
+
+    const tx = offset * spread
+    if (index === hovered) {
+      return `translateX(${tx}%) rotateY(0deg) scale(1.04)`
+    }
+
+    const side = index < hovered ? -1 : 1
+    const dist = Math.abs(index - hovered)
+    const ry = side * -(50 + dist * 10)
+    const sc = 0.76 - dist * 0.04
+    return `translateX(${tx}%) rotateY(${ry}deg) scale(${sc})`
+  }
+
+  function getZIndex(index: number): number {
+    const total = shots.length
+    if (hovered === null) {
+      const mid = Math.floor(total / 2)
+      return total - Math.abs(index - mid)
+    }
+    if (index === hovered) return total + 1
+    return total - Math.abs(index - hovered)
+  }
+
+  return (
+    <div className="project-detail-media relative" style={{ perspective: "900px" }}>
+      {/* Invisible spacer — gives the container its height */}
+      <div className="invisible pointer-events-none w-[68%] ml-[16%]">
+        <img src={shots[0]} className="w-full object-cover rounded-sm" alt="" />
+      </div>
+      {shots.map((src, i) => (
+        <div
+          key={i}
+          className="absolute top-0 left-[16%] w-[68%] overflow-hidden rounded-sm border border-border/50 bg-muted/10 cursor-pointer"
+          style={{
+            transform: getTransform(i),
+            zIndex: getZIndex(i),
+            transition: "transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.45s ease",
+            boxShadow: hovered === i
+              ? "0 8px 32px rgba(0,0,0,0.35)"
+              : "0 2px 8px rgba(0,0,0,0.18)",
+          }}
+          onMouseEnter={() => setHovered(i)}
+          onMouseLeave={() => setHovered(null)}
+        >
+          <img
+            src={src}
+            alt={`${name} preview ${i + 1}`}
+            className="w-full object-cover"
+          />
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export function Projects() {
   const [openId, setOpenId] = useState<string | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
@@ -379,13 +461,16 @@ export function Projects() {
 
                 {/* Right: Screenshot */}
                 <div className="flex flex-col gap-4">
-                  <div className="project-detail-media overflow-hidden rounded-sm border border-border/50 bg-muted/10">
-                    <img
-                      src={openProject.screenshot ?? DEFAULT_SCREENSHOT}
-                      alt={`${openProject.name} preview`}
-                      className="w-full object-cover"
-                    />
-                  </div>
+                  <ScreenshotGallery
+                    shots={
+                      openProject.screenshots?.length
+                        ? openProject.screenshots
+                        : openProject.screenshot
+                          ? [openProject.screenshot]
+                          : [DEFAULT_SCREENSHOT]
+                    }
+                    name={openProject.name}
+                  />
                   <div className="project-detail-media rounded-sm border border-primary/20 bg-primary/5 p-4">
                     <p className="mb-2 font-mono text-xs tracking-[0.2em] text-primary/60 uppercase">
                       Aperçu du projet

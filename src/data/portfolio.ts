@@ -99,6 +99,7 @@ export type Project = {
   github: string | null
   live: string | null
   screenshot: string | null
+  screenshots?: string[]
   shortDesc: string
   deepDive: string
 }
@@ -112,6 +113,10 @@ export const projects: Project[] = [
     github: "https://github.com/sanzouh/hr-reporting",
     live: null,
     screenshot: "projects_screenshots/hr-reporting-pic-1.png",
+    screenshots: [
+      "projects_screenshots/hr-reporting-pic-1.png",
+      "projects_screenshots/hr-reporting-pic-2.png",
+    ],
     shortDesc: "Système d'Information Décisionnel RH",
     deepDive:
       "Pipeline ETL multi-sources (CSV, Excel, SQLite) avec nettoyage, normalisation et chargement dans un Data Warehouse H2 en schéma étoile (5 dimensions, 12 KPI). Dashboard Swing interactif avec filtrage dynamique, graphiques JFreeChart et système d'insights automatiques.",
@@ -148,6 +153,11 @@ export const projects: Project[] = [
     github: "https://github.com/sanzouh/ScheduleManager",
     live: null,
     screenshot: "projects_screenshots/eni-schedule-manager-pic-1.png",
+    screenshots: [
+      "projects_screenshots/eni-schedule-manager-pic-1.png",
+      "projects_screenshots/eni-schedule-manager-pic-2.png",
+      "projects_screenshots/eni-schedule-manager-pic-3.png",
+    ],
     shortDesc: "Plateforme de Gestion d'Emplois du Temps Universitaire",
     deepDive:
       "API REST Node.js/Express avec Prisma ORM. Gestion des conflits horaires (professeur, salle, classe) via contraintes multi-entités. Interface React avec détection en temps réel des chevauchements. Tests unitaires Jest et migrations Prisma automatisées.",
@@ -160,6 +170,10 @@ export const projects: Project[] = [
     github: "https://github.com/sanzouh/gestion_facture",
     live: null,
     screenshot: "projects_screenshots/gestion-facture-pic-1.png",
+    screenshots: [
+      "projects_screenshots/gestion-facture-pic-1.png",
+      "projects_screenshots/gestion-facture-pic-2.png",
+    ],
     shortDesc: "Application desktop de gestion de factures en Python/Tkinter",
     deepDive:
       "Application de gestion de factures desktop en Python/Tkinter avec authentification multi-rôles (admin/utilisateur), CRUD factures utilisateur, base SQLite locale, audit automatique via triggers SQL, journal d'action et supervision admin en temps réel. Interface riche, contrôle d'accès, création de comptes et traçabilité des opérations.",
@@ -172,6 +186,11 @@ export const projects: Project[] = [
     github: "https://github.com/sanzouh/GestionAffectation",
     live: null,
     screenshot: "projects_screenshots/gestion-affectation-pic-1.png",
+    screenshots: [
+      "projects_screenshots/gestion-affectation-pic-1.png",
+      "projects_screenshots/gestion-affectation-pic-2.png",
+      "projects_screenshots/gestion-affectation-pic-3.png",
+    ],
     shortDesc:
       "Application desktop JavaFX de gestion des affectations des employés avec persistance Hibernate/MySQL.",
     deepDive:
