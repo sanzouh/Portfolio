@@ -228,6 +228,14 @@ export type Experience = {
 
 export const experiences: Experience[] = [
   {
+    company: "HelixCare",
+    role: "Développeur Fullstack",
+    period: "Avr 2026 – Présent",
+    description:
+      "Plateforme de tourisme médical connectant patients africains, hôpitaux et médecins indépendants. Architecture Next.js App Router, intégration Supabase (stockage, données patients), flux sécurisés AES-256/RGPD. Intégration en cours : passerelle Razorpay et consultations temps réel via WebSocket.",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase", "Vercel"],
+  },
+  {
     company: "Ministère des Mines",
     role: "Développeur Fullstack",
     period: "Sep 2024 – Déc 2024",
