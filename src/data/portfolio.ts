@@ -35,9 +35,9 @@ export const services = [
   {
     number: "01",
     tags: ["NODE", "EXPRESS", "NESTJS"],
-    title: "Backend Development",
+    title: "Fullstack Development",
     description:
-      "Construction d'APIs robustes et scalables avec Node.js, Express et NestJS, sur bases relationnelles et NoSQL.",
+      "Construction d'APIs robustes et scalables avec Node.js, Express et NestJS, interfaces React/Next.js soignées, sur bases relationnelles et NoSQL.",
   },
   {
     number: "02",
@@ -52,6 +52,20 @@ export const services = [
     title: "Database & API Design",
     description:
       "Conception de schémas efficaces, APIs RESTful et optimisation des requêtes pour la performance.",
+  },
+  {
+    number: "04",
+    tags: ["MERISE", "UML", "MODÉLISATION"],
+    title: "Conception SI & Modélisation",
+    description:
+      "Modélisation de systèmes d'information avec Merise et UML, conception de schémas dimensionnels (schéma étoile, flocon) et architecture de bases de données adaptées aux contraintes métier.",
+  },
+  {
+    number: "05",
+    tags: ["ETL", "DATA WAREHOUSE", "BI"],
+    title: "Business Intelligence & Data",
+    description:
+      "Conception de pipelines ETL multi-sources, construction de Data Warehouses et tableaux de bord décisionnels avec KPIs métier pour l'aide à la décision.",
   },
 ] as const
 

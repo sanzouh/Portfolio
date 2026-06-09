@@ -109,10 +109,12 @@ export function About() {
                 {about.seeking}
               </p>
               <div className="flex flex-wrap gap-2">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 font-mono text-xs tracking-wide text-primary">
-                  <span className="size-1.5 rounded-full bg-primary" />
-                  POSTE FULLSTACK
-                </span>
+                {["DEV FULLSTACK", "DEV BACKEND", "BUSINESS ANALYST", "DATA ENGINEER", "CONCEPTEUR SI"].map((tag) => (
+                  <span key={tag} className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 font-mono text-xs tracking-wide text-primary">
+                    <span className="size-1.5 rounded-full bg-primary" />
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
