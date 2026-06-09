@@ -173,15 +173,7 @@ export function Header() {
 
         {/* ── Actions ── */}
         <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(isDark ? "light" : "dark")}
-            className="hdr-action transition-colors hover:bg-primary/10 hover:text-primary"
-            title={isDark ? "Mode clair" : "Mode sombre"}
-          >
-            {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
-          </Button>
+          {/* theme toggle — disabled until light mode is polished */}
 
           <a
             href={links.cv}

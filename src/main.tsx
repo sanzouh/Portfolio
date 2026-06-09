@@ -9,6 +9,9 @@ import { ThemeProvider } from "@/components/theme-provider.tsx"
 
 gsap.registerPlugin(ScrollTrigger)
 
+// light mode disabled until polished — force dark
+localStorage.setItem("theme", "dark")
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider defaultTheme="dark">
