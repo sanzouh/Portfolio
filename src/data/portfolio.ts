@@ -23,12 +23,12 @@ export const links = {
 export const about = {
   bio: [
     "Je suis un développeur fullstack avec plusieurs années de formation intensive couvrant l'intégralité du cycle de vie d'un projet, de la conception à la mise en production.",
-    "Je travaille principalement avec Node.js, NestJS et React, en concevant des architectures backend propres et des interfaces soignées.",
+    "Je travaille principalement avec Node.js, Laravel et React, en concevant des architectures backend propres et des interfaces soignées.",
     "J'ai également de l'expérience en DevOps : CI/CD, conteneurisation Docker, pipelines GitHub Actions.",
     "Mon objectif : devenir un ingénieur backend solide, capable de construire des systèmes performants et distribués.",
   ],
   seeking:
-    "Je suis actuellement à la recherche d'un stage 6 mois remote ou d'un poste junior backend.",
+    "Toujours à la recherche de nouveaux défis techniques et d'opportunités pour construire des choses qui comptent.",
 } as const
 
 export const services = [
